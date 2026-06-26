@@ -13,9 +13,10 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap
 import it.unimi.dsi.fastutil.objects.ObjectArrayList
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{EntityLivingBase, SharedMonsterAttributes}
+import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.PotionEffect
-import net.minecraft.tileentity.TileEntityBeacon
+import net.minecraft.tileentity.{TileEntity, TileEntityBeacon}
 import net.minecraft.util.{AxisAlignedBB, ChunkCoordinates, DamageSource}
 import net.minecraft.world.{World, WorldServer}
 import vazkii.botania.common.block.BlockPylon
@@ -27,7 +28,7 @@ import java.util.UUID
 import java.util.function.IntFunction
 import scala.collection.mutable
 
-class TileBeaconFarmer extends TileEntityBeacon {
+class TileBeaconFarmer extends TileEntity with IInventory {
   private var ingot: ItemStack = null
   private var killing: Option[EntityDoppleganger] = None
   private var completedStructure: Boolean = false
@@ -67,7 +68,6 @@ class TileBeaconFarmer extends TileEntityBeacon {
 
     if (itemStack == null) return false
 
-//    EntityDoppleganger.spawn(fakePlayer, itemStack, this.worldObj, this.xCoord, this.yCoord + 3, this.zCoord, itemStack.getItemDamage == 14)
     val doppleganger = new EntityDoppleganger(this.worldObj)
     doppleganger.setPosition(this.xCoord + 0.5, this.yCoord + 3, this.zCoord + 0.5)
     doppleganger.setInvulTime(spawnTicks)
@@ -166,13 +166,21 @@ class TileBeaconFarmer extends TileEntityBeacon {
 
   override def hasCustomInventoryName: Boolean = true
 
-  override def func_145999_a(name: String): Unit = {}
-
   override def getInventoryStackLimit: Int = 1
 
   override def isItemValidForSlot(slot: Int, stack: ItemStack): Boolean =
     stack.getItem.isInstanceOf[ItemManaResource] &&
       (stack.getItemDamage == 4 || stack.getItemDamage == 14)
+
+  override def getSizeInventory: Int = 1
+
+  override def isUseableByPlayer(player: EntityPlayer): Boolean =
+    if (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) ne this) false
+    else player.getDistanceSq(this.xCoord.toDouble + 0.5D, this.yCoord.toDouble + 0.5D, this.zCoord.toDouble + 0.5D) <= 64.0D
+
+  override def openInventory(): Unit = {}
+
+  override def closeInventory(): Unit = {}
 }
 
 object TileBeaconFarmer {
