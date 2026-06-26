@@ -1,0 +1,8 @@
+{
+	"required": true,
+	"minVersion": "0.8.7",
+	"package": "com.equilcraft.bigsteppa.mixins.late",
+	"refmap": "mixins.bigsteppa.refmap.json",
+	"target": "@env(DEFAULT)",
+	"compatibilityLevel": "JAVA_8"
+}
