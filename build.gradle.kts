@@ -2,16 +2,6 @@ plugins {
 	id("com.gtnewhorizons.gtnhconvention")
 }
 
-tasks.compileScala {
-	classpath = sourceSets.main.get().compileClasspath
-}
-
-tasks.compileJava {
-	classpath += files(sourceSets.main.get().extensions
-		.getByName<SourceDirectorySet>("scala")
-		.classesDirectory)
-}
-
 version = "1.0.0"
 
 minecraft {
@@ -23,4 +13,14 @@ minecraft {
 
 tasks.injectTags.configure {
 	outputClassName.set("${providers.gradleProperty("modGroup").get()}.Tags")
+}
+
+tasks.compileScala {
+	classpath = sourceSets.main.get().compileClasspath
+}
+
+tasks.compileJava {
+	classpath += files(sourceSets.main.get().extensions
+		.getByName<SourceDirectorySet>("scala")
+		.classesDirectory)
 }

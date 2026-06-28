@@ -21,6 +21,9 @@ public class LateMixinsLoader implements ILateMixinLoader {
 //		Arrays.asList("%%LATE_MIXINS%%"); // TODO: rewrite for autodetect mixins on build
 		List<String> mixins = new ArrayList<>();
 		mixins.add("botania.EntityDopplegangerMixin");
+		mixins.add("thaumicenergistics.stand.TileArcaneAssemblerMixin");
+		mixins.add("thaumicenergistics.stand.TileArcaneAssembler$AAInvMixin");
+		mixins.add("thaumicenergistics.stand.ContainerArcaneAssemblerMixin");
 		return mixins;
 	}
 }

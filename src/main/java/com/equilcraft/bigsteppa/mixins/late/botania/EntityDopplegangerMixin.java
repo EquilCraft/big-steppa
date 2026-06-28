@@ -65,8 +65,8 @@ public abstract class EntityDopplegangerMixin extends Entity {
 	@Inject(method = "getPlayersAround", at = @At("HEAD"), cancellable = true)
 	private void bigsteppa$getPlayersAround(CallbackInfoReturnable<List<EntityPlayer>> cir) {
 		if (this.playersWhoAttacked.contains(TileBeaconFarmer$.MODULE$.fakePlayerName())) {
-			ChunkCoordinates coords = TileBeaconFarmer$.MODULE$.findNearestTileWithRadius(
-				this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 16.0);
+			ChunkCoordinates coords = TileBeaconFarmer$.MODULE$.registry().findNearestTileWithRadius(
+				this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 16);
 
 			if (coords == null) return;
 

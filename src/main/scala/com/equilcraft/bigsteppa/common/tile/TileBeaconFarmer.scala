@@ -1,16 +1,21 @@
 package com.equilcraft.bigsteppa.common.tile
 
 import com.equilcraft.bigsteppa.api.BigFakePlayer
+import com.equilcraft.bigsteppa.api.internal.BlocksChaosStructureRegistry
 import com.equilcraft.bigsteppa.common.block.build.BlockStructure
 import com.equilcraft.bigsteppa.common.block.update.{BlockDamageUpdate, BlockLootingUpdate}
 import com.equilcraft.bigsteppa.common.entity.EntityDopplegangerSpawned
+import com.equilcraft.bigsteppa.common.init.SteppaBlocks
 import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer._
 import com.equilcraft.bigsteppa.implicits.ConversionJavaList.JavaListForeach
+import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable
+import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing
+import com.gtnewhorizon.structurelib.structure.adders.IBlockAdder
+import com.gtnewhorizon.structurelib.structure.{IStructureDefinition, StructureDefinition, StructureUtility}
 import com.mojang.authlib.GameProfile
-import cpw.mods.fml.common.FMLCommonHandler
-import cpw.mods.fml.server.FMLServerHandler
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap
 import it.unimi.dsi.fastutil.objects.ObjectArrayList
+import net.minecraft.block.Block
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.{EntityLivingBase, SharedMonsterAttributes}
 import net.minecraft.inventory.IInventory
@@ -19,16 +24,15 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.tileentity.{TileEntity, TileEntityBeacon}
 import net.minecraft.util.{AxisAlignedBB, ChunkCoordinates, DamageSource}
 import net.minecraft.world.{World, WorldServer}
-import vazkii.botania.common.block.BlockPylon
+import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.entity.{EntityDoppleganger, EntityDopplegangerHelper}
 import vazkii.botania.common.item.ModItems
 import vazkii.botania.common.item.material.ItemManaResource
 
 import java.util.UUID
 import java.util.function.IntFunction
-import scala.collection.mutable
 
-class TileBeaconFarmer extends TileEntity with IInventory {
+class TileBeaconFarmer extends TileEntity with IInventory with IConstructable {
   private var ingot: ItemStack = null
   private var killing: Option[EntityDoppleganger] = None
   private var completedStructure: Boolean = false
@@ -44,7 +48,7 @@ class TileBeaconFarmer extends TileEntity with IInventory {
     if (this.worldObj.isRemote) return
 
     if (this.worldObj.getTotalWorldTime % 100L == 0L) {
-      this.applyEffects()
+//      this.applyEffects()
       this.completedStructure = this.checkStructure()
     }
 
@@ -92,22 +96,39 @@ class TileBeaconFarmer extends TileEntity with IInventory {
     this.damageUpdate = 1
     this.lootUpdate = 0
 
-    pylons.forall {
-      case (x, y, z) =>
-        this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z) match {
-          case _: BlockPylon if this.worldObj.getBlockMetadata(this.xCoord + x, this.yCoord + y, this.zCoord + z) == 2 => true
-          case _ => false
-        }
-    } && structure.forall {
-      case (x, y, z) =>
-        this.worldObj.getBlock(this.xCoord + x, this.yCoord + y, this.zCoord + z) match {
-          case _: BlockDamageUpdate => this.damageUpdate += 1; true
-          case _: BlockLootingUpdate => this.lootUpdate += 1; true
-          case _: BlockStructure => true
-          case _ => false
-        }
-    }
+    structureDefinition.check(
+      this,
+      mainPiece,
+      this.worldObj,
+      ExtendedFacing.DEFAULT,
+      this.xCoord,
+      this.yCoord,
+      this.zCoord,
+      horizontalOffset,
+      verticalOffset,
+      depthOffset,
+      true)
   }
+
+  override def construct(stackSize: ItemStack, hintsOnly: Boolean): Unit =
+    structureDefinition.buildOrHints(
+      this,
+      stackSize,
+      mainPiece,
+      this.worldObj,
+      ExtendedFacing.DEFAULT,
+      this.xCoord,
+      this.yCoord,
+      this.zCoord,
+      horizontalOffset,
+      verticalOffset,
+      depthOffset,
+      hintsOnly)
+
+  override def getStructureDefinition: IStructureDefinition[TileBeaconFarmer] = structureDefinition
+
+  override def getStructureDescription(stackSize: ItemStack): Array[String] =
+    Array("Gaia pylons and structure blocks must be one block above the controller")
 
   private def applyEffects(): Unit = {
     val aabb = AxisAlignedBB
@@ -127,14 +148,14 @@ class TileBeaconFarmer extends TileEntity with IInventory {
   override def validate(): Unit = {
     super.validate()
     if (!this.worldObj.isRemote) {
-      TileBeaconFarmer.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
+      TileBeaconFarmer.registry.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
     }
   }
 
   override def invalidate(): Unit = {
     super.invalidate()
     if (!this.worldObj.isRemote) {
-      TileBeaconFarmer.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
+      TileBeaconFarmer.registry.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
     }
   }
 
@@ -184,59 +205,64 @@ class TileBeaconFarmer extends TileEntity with IInventory {
 }
 
 object TileBeaconFarmer {
+  val registry = new BlocksChaosStructureRegistry()
   final val fakePlayerUUID = "24b4fdb0-01c5-3732-8433-8fef2d2643a6"
   final val fakePlayerName = "[BeaconFarmer]"
-  final val spawnTicks: Int = 100
-  final val radius: Double = 50.0D
+  private final val spawnTicks: Int = 100
+  private final val radius: Double = 50.0D
 
-  final val pylons: List[(Int, Int, Int)] = List((4, 1, 4), (4, 1, -4), (-4, 1, 4), (-4, 1, -4))
-  final val structure: List[(Int, Int, Int)] = List((6,1,1), (6,1,0), (6,1,-1), (5,1,3), (5,1,2), (5,1,-2), (5,1,-3), (3,1,5), (3,1,-5), (2,1,5), (2,1,-5), (1,1,6), (1,1,-6), (0,1,6), (0,1,-6), (-1,1,6), (-1,1,-6), (-2,1,5), (-2,1,-5), (-3,1,5), (-3,1,-5), (-5,1,3), (-5,1,2), (-5,1,-2), (-5,1,-3), (-6,1,1), (-6,1,0), (-6,1,-1))
+  private final val mainPiece = "main"
+  private final val horizontalOffset = 6
+  private final val verticalOffset = 1
+  private final val depthOffset = 6
 
-  final val defaultRegistryList = new IntFunction[ObjectArrayList[ChunkCoordinates]] {
-    override def apply(value: Int): ObjectArrayList[ChunkCoordinates] = new ObjectArrayList[ChunkCoordinates]()
-  }
-
-  val registry = new Int2ObjectOpenHashMap[ObjectArrayList[ChunkCoordinates]]()
-
-  def add(world: World, x: Int, y: Int, z: Int): Unit =
-    registry.computeIfAbsent(world.provider.dimensionId, defaultRegistryList)
-      .add(new ChunkCoordinates(x, y, z))
-
-  def remove(world: World, x: Int, y: Int, z: Int): Unit = {
-    val dimId = world.provider.dimensionId
-    if (registry.containsKey(dimId)) registry.get(dimId).remove(new ChunkCoordinates(x, y, z))
-  }
-
-  def getPositions(world: World): ObjectArrayList[ChunkCoordinates] =
-    registry.getOrDefault(world.provider.dimensionId, new ObjectArrayList[ChunkCoordinates]())
-
-  def findNearestTileWithRadius(world: World, startX: Int, startY: Int, startZ: Int, maxRadius: Double): ChunkCoordinates = {
-    val positions = getPositions(world)
-
-    if (positions == null || positions.isEmpty) {
-      return null
+  private val upgradeBlockAdder = new IBlockAdder[TileBeaconFarmer] {
+    override def apply(tile: TileBeaconFarmer, block: Block, meta: Int): Boolean = block match {
+      case _: BlockDamageUpdate =>
+        tile.damageUpdate += 1
+        true
+      case _: BlockLootingUpdate =>
+        tile.lootUpdate += 1
+        true
+      case _: BlockStructure => true
+      case _ => false
     }
-
-    var nearest: ChunkCoordinates = null
-    val maxRadiusSq = maxRadius * maxRadius
-    var minDistanceSq = maxRadiusSq
-
-    val size = positions.size()
-    var i = 0
-    while (i < size) {
-      val coords = positions.get(i)
-
-      if (!(coords.posX == startX && coords.posY == startY && coords.posZ == startZ)) {
-        val distSq = coords.getDistanceSquared(startX, startY, startZ)
-
-        if (distSq < minDistanceSq) {
-          minDistanceSq = distSq
-          nearest = coords
-        }
-      }
-      i += 1
-    }
-
-    nearest
   }
+
+  lazy val structureDefinition: IStructureDefinition[TileBeaconFarmer] =
+    StructureDefinition.builder[TileBeaconFarmer]()
+      .addShape(mainPiece, StructureUtility.transpose(Array(
+        Array(
+          "     SSS     ",
+          "   SS   SS   ",
+          "  P       P  ",
+          " S         S ",
+          " S         S ",
+          "S           S",
+          "S           S",
+          "S           S",
+          " S         S ",
+          " S         S ",
+          "  P       P  ",
+          "   SS   SS   ",
+          "     SSS     "),
+        Array(
+          "             ",
+          "             ",
+          "             ",
+          "             ",
+          "             ",
+          "             ",
+          "      ~      ",
+          "             ",
+          "             ",
+          "             ",
+          "             ",
+          "             ",
+          "             "))))
+      .addElement('P', StructureUtility.ofBlock[TileBeaconFarmer](ModBlocks.pylon, 2))
+      .addElement(
+        'S',
+        StructureUtility.ofBlockAdder[TileBeaconFarmer](upgradeBlockAdder, SteppaBlocks.structure, 0))
+      .build()
 }
