@@ -1,5 +1,6 @@
 package com.equilcraft.bigsteppa.common.tile
 
+import com.equilcraft.bigsteppa.api.internal.BlocksChaosStructureRegistry
 import com.equilcraft.bigsteppa.common.tile.TileArmorStand.SlotCount
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.entity.player.EntityPlayer
@@ -67,7 +68,7 @@ class TileArmorStand extends TileEntity with IInventory {
   override def isUseableByPlayer(player: EntityPlayer): Boolean =
     worldObj != null &&
       worldObj.getTileEntity(xCoord, yCoord, zCoord) == this &&
-      player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D
+        player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D
 
   override def openInventory(): Unit = ()
 
@@ -76,8 +77,8 @@ class TileArmorStand extends TileEntity with IInventory {
   override def isItemValidForSlot(slot: Int, stack: ItemStack): Boolean =
     stack != null &&
       slot >= 0 &&
-      slot < inventory.length &&
-      stack.getItem.isValidArmor(stack, slot, null)
+        slot < inventory.length &&
+          stack.getItem.isValidArmor(stack, slot, null)
 
   def clearWithoutSync(): Unit = {
     inventory = new Array[ItemStack](SlotCount)
@@ -147,6 +148,20 @@ class TileArmorStand extends TileEntity with IInventory {
   @SideOnly(Side.CLIENT)
   override def getRenderBoundingBox: AxisAlignedBB =
     AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 2, zCoord + 1)
+
+  override def validate(): Unit = {
+    super.validate()
+    if (!this.worldObj.isRemote) {
+      TileArmorStand.registry.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
+    }
+  }
+
+  override def invalidate(): Unit = {
+    super.invalidate()
+    if (!this.worldObj.isRemote) {
+      TileArmorStand.registry.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
+    }
+  }
 }
 
 object TileArmorStand {
@@ -155,4 +170,6 @@ object TileArmorStand {
   final val SlotLegs = 2
   final val SlotFeet = 3
   final val SlotCount = 4
+
+  val registry = new BlocksChaosStructureRegistry[TileArmorStand]()
 }

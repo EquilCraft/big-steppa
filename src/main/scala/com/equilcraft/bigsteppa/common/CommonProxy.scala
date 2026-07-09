@@ -1,6 +1,7 @@
 package com.equilcraft.bigsteppa.common
 
 import com.equilcraft.bigsteppa.{BigSteppa, Config}
+import com.equilcraft.bigsteppa.common.alchemy.AlchemicalSynthesisRegistry
 import com.equilcraft.bigsteppa.common.gui.ArmorStandGuiHandler
 import com.equilcraft.bigsteppa.common.init.{SteppaBlocks, SteppaEntities}
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLServerStartingEvent}
@@ -21,6 +22,7 @@ class CommonProxy {
   }
 
   def postInit(event: FMLPostInitializationEvent): Unit = {
+    AlchemicalSynthesisRegistry.initialize()
   }
 
   def serverStarting(event: FMLServerStartingEvent): Unit = {

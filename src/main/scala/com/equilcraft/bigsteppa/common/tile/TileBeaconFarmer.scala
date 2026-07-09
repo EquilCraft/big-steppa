@@ -40,9 +40,11 @@ class TileBeaconFarmer extends TileEntity with IInventory with IConstructable {
   private var damageUpdate: Int = 1
   private var lootUpdate: Int = 0
 
-  lazy val fakePlayer: BigFakePlayer =
-    new BigFakePlayer(this.worldObj.asInstanceOf[WorldServer],
+  lazy val fakePlayer: BigFakePlayer = BigFakePlayer
+    .getFakePlayer(this.worldObj,
       new GameProfile(UUID.fromString(fakePlayerUUID), fakePlayerName))
+//    new BigFakePlayer(this.worldObj.asInstanceOf[WorldServer],
+//      new GameProfile(UUID.fromString(fakePlayerUUID), fakePlayerName))
 
   override def updateEntity(): Unit = {
     if (this.worldObj.isRemote) return
@@ -55,10 +57,10 @@ class TileBeaconFarmer extends TileEntity with IInventory with IConstructable {
     if (this.completedStructure && this.worldObj.getTotalWorldTime % 20L == 0L) {
       if (!this.killing.exists(_.isEntityAlive) && !this.spawnGaia()) return
 
-      val aabb = AxisAlignedBB.getBoundingBox(this.xCoord - 12, this.yCoord - 2, this.zCoord - 12, this.xCoord + 12, this.yCoord + 6, this.zCoord + 12)
+      val aabb = AxisAlignedBB.getBoundingBox(this.xCoord - radiusDamage, this.yCoord - 1, this.zCoord - radiusDamage, this.xCoord + radiusDamage, this.yCoord + 6, this.zCoord + radiusDamage)
       this.worldObj.getEntitiesWithinAABB(classOf[EntityLivingBase], aabb).foreach {
         entity => {
-          entity.attackEntityFrom(DamageSource.causePlayerDamage(fakePlayer), 20 * this.damageUpdate)
+          entity.attackEntityFrom(DamageSource.causePlayerDamage(fakePlayer), 25 * this.damageUpdate)
         }
       }
 
@@ -132,8 +134,8 @@ class TileBeaconFarmer extends TileEntity with IInventory with IConstructable {
 
   private def applyEffects(): Unit = {
     val aabb = AxisAlignedBB
-      .getBoundingBox(this.xCoord - radius, this.yCoord, this.zCoord - radius,
-                      this.xCoord + radius, this.worldObj.getHeight, this.zCoord + radius)
+      .getBoundingBox(this.xCoord - radiusEffects, this.yCoord, this.zCoord - radiusEffects,
+                      this.xCoord + radiusEffects, this.worldObj.getHeight, this.zCoord + radiusEffects)
 
     this.worldObj.getEntitiesWithinAABB(classOf[EntityPlayer], aabb).foreach {
       player: EntityPlayer => {
@@ -208,8 +210,9 @@ object TileBeaconFarmer {
   val registry = new BlocksChaosStructureRegistry()
   final val fakePlayerUUID = "24b4fdb0-01c5-3732-8433-8fef2d2643a6"
   final val fakePlayerName = "[BeaconFarmer]"
-  private final val spawnTicks: Int = 100
-  private final val radius: Double = 50.0D
+  private final val spawnTicks = 100
+  private final val radiusEffects = 50.0D
+  private final val radiusDamage = 15
 
   private final val mainPiece = "main"
   private final val horizontalOffset = 6
