@@ -32,8 +32,8 @@ final class TileAlchemicalSynthesisCore
   override protected def depthOffset: Int = 5
 
 
-  override protected def onPreStructureCheck(): Unit = runeCounts.clear()
-  override protected def onStructureBroken(): Unit = runeCounts.clear()
+  override protected def onPreStructureCheck(): Unit = this.runeCounts.clear()
+  override protected def onStructureBroken(): Unit = this.runeCounts.clear()
 
 
   private var ticksUntilOreSynthesis = Config.alchemicalSynthesisSpawnInterval
@@ -46,7 +46,7 @@ final class TileAlchemicalSynthesisCore
 
   override def updateEntity(): Unit = {
     if (!this.worldObj.isRemote) {
-      tickStructureCheck()
+      this.tickStructureCheck()
 
       if (Config.alchemicalSynthesisEnabled && this.isStructureFormed) {
         this.ticksUntilOreSynthesis -= 1

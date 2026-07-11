@@ -6,14 +6,14 @@ object GuiRegistry {
   private val providers = new Int2ObjectOpenHashMap[GuiProvider]()
 
   def register(id: Int, provider: GuiProvider): Unit = {
-    require(!providers.containsKey(id), "GUI id is already registered: " + id)
-    providers.put(id, provider)
+    require(!this.providers.containsKey(id), "GUI id is already registered: " + id)
+    this.providers.put(id, provider)
   }
 
   def registerClient(id: Int, provider: GuiProvider): Unit = {
-    require(providers.containsKey(id), "GUI id is not registered: " + id)
-    providers.put(id, provider)
+    require(this.providers.containsKey(id), "GUI id is not registered: " + id)
+    this.providers.put(id, provider)
   }
 
-  def get(id: Int): GuiProvider = providers.get(id)
+  def get(id: Int): GuiProvider = this.providers.get(id)
 }

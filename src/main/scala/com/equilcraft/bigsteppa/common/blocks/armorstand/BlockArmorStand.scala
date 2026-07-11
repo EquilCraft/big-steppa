@@ -23,16 +23,16 @@ import java.util.Random
 class BlockArmorStand extends BlockContainer(Material.wood) {
   private var removingOtherHalf = false
 
-  setHardness(2.5F)
-  setResistance(5.0F)
-  setStepSound(Block.soundTypeWood)
-  setCreativeTab(CreativeTabs.tabDecorations)
+  this.setHardness(2.5F)
+  this.setResistance(5.0F)
+  this.setStepSound(Block.soundTypeWood)
+  this.setCreativeTab(CreativeTabs.tabDecorations)
 
   override def registerBlockIcons(register: IIconRegister): Unit = {
-    blockIcon = register.registerIcon("minecraft:planks_oak")
+    this.blockIcon = register.registerIcon("minecraft:planks_oak")
   }
 
-  override def getIcon(side: Int, metadata: Int): IIcon = blockIcon
+  override def getIcon(side: Int, metadata: Int): IIcon = this.blockIcon
 
   override def renderAsNormalBlock: Boolean = false
 
@@ -50,9 +50,9 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
   ): Unit = {
     val rotation = world.getBlockMetadata(x, y, z) & 3
     if ((rotation & 1) == 0) {
-      setBlockBounds(0.27F, 0.0F, 0.05F, 0.73F, 1.0F, 0.95F)
+      this.setBlockBounds(0.27F, 0.0F, 0.05F, 0.73F, 1.0F, 0.95F)
     } else {
-      setBlockBounds(0.05F, 0.0F, 0.27F, 0.95F, 1.0F, 0.73F)
+      this.setBlockBounds(0.05F, 0.0F, 0.27F, 0.95F, 1.0F, 0.73F)
     }
   }
 
@@ -65,7 +65,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
     boxes: util.List[AxisAlignedBB],
     entity: Entity
   ): Unit = {
-    setBlockBoundsBasedOnState(world, x, y, z)
+    this.setBlockBoundsBasedOnState(world, x, y, z)
     super.addCollisionBoxesToList(world, x, y, z, mask, boxes, entity)
   }
 
@@ -75,7 +75,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
     y: Int,
     z: Int
   ): AxisAlignedBB = {
-    setBlockBoundsBasedOnState(world, x, y, z)
+    this.setBlockBoundsBasedOnState(world, x, y, z)
     super.getSelectedBoundingBoxFromPool(world, x, y, z)
   }
 
@@ -85,7 +85,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
     y: Int,
     z: Int
   ): AxisAlignedBB = {
-    setBlockBoundsBasedOnState(world, x, y, z)
+    this.setBlockBoundsBasedOnState(world, x, y, z)
     super.getCollisionBoundingBoxFromPool(world, x, y, z)
   }
 
@@ -125,19 +125,19 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
       case armorStand: TileArmorStand =>
         if (world.isRemote) return true
 
-        val standSlot = clickedSlot(metadata, hitY)
+        val standSlot = this.clickedSlot(metadata, hitY)
         if (player.isSneaking) {
           val powered =
             world.isBlockIndirectlyGettingPowered(x, lowerY, z) ||
               world.isBlockIndirectlyGettingPowered(x, lowerY + 1, z)
           if (powered) {
             for (slot <- 0 until slotCount) {
-              swapWithPlayer(player, armorStand, slot)
+              this.swapWithPlayer(player, armorStand, slot)
             }
           } else {
-            swapWithPlayer(player, armorStand, standSlot)
+            this.swapWithPlayer(player, armorStand, standSlot)
           }
-          syncPlayerInventory(player)
+          this.syncPlayerInventory(player)
           true
         } else {
           val held = player.getHeldItem
@@ -153,7 +153,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
             if (held.stackSize <= 0) {
               player.inventory.setInventorySlotContents(player.inventory.currentItem, null)
             }
-            syncPlayerInventory(player)
+            this.syncPlayerInventory(player)
           } else {
             player.openGui(
               BigSteppa,
@@ -207,7 +207,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
     oldBlock: Block,
     metadata: Int
   ): Unit = {
-    if (removingOtherHalf) {
+    if (this.removingOtherHalf) {
       super.breakBlock(world, x, y, z, oldBlock, metadata)
       return
     }
@@ -215,19 +215,19 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
     val lowerY = if ((metadata & 4) == 0) y else y - 1
     if (!world.isRemote) {
       world.getTileEntity(x, lowerY, z) match {
-        case armorStand: TileArmorStand => dropContents(world, x, lowerY, z, armorStand)
+        case armorStand: TileArmorStand => this.dropContents(world, x, lowerY, z, armorStand)
         case _ =>
       }
     }
 
     val otherY = if ((metadata & 4) == 0) y + 1 else y - 1
-    removingOtherHalf = true
+    this.removingOtherHalf = true
     try {
       if (world.getBlock(x, otherY, z) == this) {
         world.setBlockToAir(x, otherY, z)
       }
     } finally {
-      removingOtherHalf = false
+      this.removingOtherHalf = false
     }
     super.breakBlock(world, x, y, z, oldBlock, metadata)
   }

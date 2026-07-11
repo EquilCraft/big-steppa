@@ -65,11 +65,11 @@ object AlchemicalSynthesisStructure {
   lazy val structureDefinition: IStructureDefinition[TileAlchemicalSynthesisCore] =
     StructureDefinition
       .builder[TileAlchemicalSynthesisCore]()
-      .addShape("main", createShape())
+      .addShape("main", this.createShape())
       .addElement(
         'R',
         StructureUtility.ofBlockAdder[TileAlchemicalSynthesisCore](
-          runeAdder,
+          this.runeAdder,
           SteppaBlocks.alchemicalSynthesisRune,
           0
         )

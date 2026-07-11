@@ -50,7 +50,7 @@ object BeaconFarmerStructure {
       .addElement('P', StructureUtility.ofBlock[TileBeaconFarmer](ModBlocks.pylon, 2))
       .addElement(
         'S',
-        StructureUtility.ofBlockAdder[TileBeaconFarmer](upgradeBlockAdder, SteppaBlocks.structure, 0)
+        StructureUtility.ofBlockAdder[TileBeaconFarmer](this.upgradeBlockAdder, SteppaBlocks.structure, 0)
       )
       .build()
 }

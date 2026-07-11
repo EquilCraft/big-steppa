@@ -6,12 +6,12 @@ class TileBeaconFarmer extends com.equilcraft.bigsteppa.common.tile.beaconfarmer
 
   override def validate(): Unit = {
     super.validate()
-    TileBeaconFarmer.registry.add(worldObj, xCoord, yCoord, zCoord)
+    TileBeaconFarmer.registry.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
   }
 
   override def invalidate(): Unit = {
     super.invalidate()
-    TileBeaconFarmer.registry.remove(worldObj, xCoord, yCoord, zCoord)
+    TileBeaconFarmer.registry.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
   }
 }
 

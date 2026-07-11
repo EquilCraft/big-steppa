@@ -6,12 +6,12 @@ class TileArmorStand extends com.equilcraft.bigsteppa.common.tile.armorstand.Til
 
   override def validate(): Unit = {
     super.validate()
-    TileArmorStand.registry.add(worldObj, xCoord, yCoord, zCoord)
+    TileArmorStand.registry.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
   }
 
   override def invalidate(): Unit = {
     super.invalidate()
-    TileArmorStand.registry.remove(worldObj, xCoord, yCoord, zCoord)
+    TileArmorStand.registry.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
   }
 }
 

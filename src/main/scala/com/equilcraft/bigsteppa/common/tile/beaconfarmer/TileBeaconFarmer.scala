@@ -71,7 +71,7 @@ class TileBeaconFarmer
     if (this.worldObj.isRemote) return
 
     if (this.worldObj.getTotalWorldTime % 100L == 0L) {
-      tickStructureCheck()
+      this.tickStructureCheck()
     }
 
     if (this.isStructureFormed && this.worldObj.getTotalWorldTime % 20L == 0L) {
@@ -80,7 +80,7 @@ class TileBeaconFarmer
       val aabb = AxisAlignedBB.getBoundingBox(this.xCoord - radiusDamage, this.yCoord - 1, this.zCoord - radiusDamage, this.xCoord + radiusDamage, this.yCoord + 6, this.zCoord + radiusDamage)
       this.worldObj.getEntitiesWithinAABB(classOf[EntityLivingBase], aabb).foreach {
         entity => {
-          entity.attackEntityFrom(DamageSource.causePlayerDamage(fakePlayer), 25 * this.damageUpdate)
+          entity.attackEntityFrom(DamageSource.causePlayerDamage(this.fakePlayer), 25 * this.damageUpdate)
         }
       }
 
@@ -164,12 +164,12 @@ class TileBeaconFarmer
 
   override def validate(): Unit = {
     super.validate()
-    spatialValidate()
+    this.spatialValidate()
   }
 
   override def invalidate(): Unit = {
     super.invalidate()
-    spatialInvalidate()
+    this.spatialInvalidate()
   }
 }
 
