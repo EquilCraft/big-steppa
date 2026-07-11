@@ -8,8 +8,6 @@ import com.equilcraft.bigsteppa.common.alchemy.{
 }
 import com.equilcraft.bigsteppa.common.block.multiblock.BlockAlchemicalSynthesisRune
 import com.equilcraft.bigsteppa.common.init.SteppaBlocks
-import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable
-import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing
 import com.gtnewhorizon.structurelib.structure.adders.IBlockAdder
 import com.gtnewhorizon.structurelib.structure.{IStructureDefinition, StructureDefinition, StructureUtility}
 import net.minecraft.block.Block
@@ -21,11 +19,24 @@ import thaumcraft.api.aspects.AspectList
 
 import java.util
 
-final class TileAlchemicalSynthesisCore extends TileEntity with IConstructable {
+final class TileAlchemicalSynthesisCore
+    extends TileEntity
+    with MultiblockController[TileAlchemicalSynthesisCore] {
+
   import TileAlchemicalSynthesisCore._
 
-  private var structureFormed = false
-  private var ticksUntilStructureCheck = 0
+
+  override protected def structureDef: IStructureDefinition[TileAlchemicalSynthesisCore] = structure
+  override protected def mainPiece: String = "main"
+  override protected def horizontalOffset: Int = 5
+  override protected def verticalOffset: Int = 1
+  override protected def depthOffset: Int = 5
+
+
+  override protected def onPreStructureCheck(): Unit = runeCounts.clear()
+  override protected def onStructureBroken(): Unit = runeCounts.clear()
+
+
   private var ticksUntilOreSynthesis = Config.alchemicalSynthesisSpawnInterval
   private val runeCounts = new util.HashMap[String, Integer]()
   private val synthesisCost = new AspectList
@@ -36,14 +47,9 @@ final class TileAlchemicalSynthesisCore extends TileEntity with IConstructable {
 
   override def updateEntity(): Unit = {
     if (!this.worldObj.isRemote) {
-      if (this.ticksUntilStructureCheck > 0) {
-        this.ticksUntilStructureCheck -= 1
-      }
-      if (this.ticksUntilStructureCheck == 0) {
-        this.checkStructureNow()
-      }
+      tickStructureCheck()
 
-      if (Config.alchemicalSynthesisEnabled && this.structureFormed) {
+      if (Config.alchemicalSynthesisEnabled && this.isStructureFormed) {
         this.ticksUntilOreSynthesis -= 1
         if (this.ticksUntilOreSynthesis <= 0) {
           this.ticksUntilOreSynthesis = this.synthesizeOreVein() match {
@@ -270,8 +276,6 @@ final class TileAlchemicalSynthesisCore extends TileEntity with IConstructable {
       relativeZ <= innerMaximumZ
   }
 
-  def isStructureFormed: Boolean = this.structureFormed
-
   def getAcceleratedOperationInterval(baseInterval: Int): Int = {
     val runes = AlchemicalSynthesisRegistry.getRunes
     var speedPercent = 0L
@@ -292,54 +296,10 @@ final class TileAlchemicalSynthesisCore extends TileEntity with IConstructable {
       case _                                         => null
     }
 
-  def scheduleStructureCheck(): Unit =
-    this.ticksUntilStructureCheck = 0
-
   def recordRune(runeId: String): Unit = {
     val currentCount = this.runeCounts.get(runeId)
     this.runeCounts.put(runeId, Int.box(if (currentCount == null) 1 else currentCount.intValue() + 1))
   }
-
-  def checkStructureNow(): Boolean = {
-    this.runeCounts.clear()
-    this.structureFormed = structure.check(
-      this,
-      mainPiece,
-      this.worldObj,
-      ExtendedFacing.DEFAULT,
-      this.xCoord,
-      this.yCoord,
-      this.zCoord,
-      horizontalOffset,
-      verticalOffset,
-      depthOffset,
-      false
-    )
-    if (!this.structureFormed) {
-      this.runeCounts.clear()
-    }
-    this.ticksUntilStructureCheck = structureCheckInterval
-    this.structureFormed
-  }
-
-  override def construct(trigger: ItemStack, hintsOnly: Boolean): Unit =
-    structure.buildOrHints(
-      this,
-      trigger,
-      mainPiece,
-      this.worldObj,
-      ExtendedFacing.DEFAULT,
-      this.xCoord,
-      this.yCoord,
-      this.zCoord,
-      horizontalOffset,
-      verticalOffset,
-      depthOffset,
-      hintsOnly
-    )
-
-  override def getStructureDefinition: IStructureDefinition[TileAlchemicalSynthesisCore] =
-    structure
 
   override def getStructureDescription(trigger: ItemStack): Array[String] =
     Array(
@@ -368,13 +328,7 @@ object TileAlchemicalSynthesisCore {
   private final val synthesisSucceeded = 1
   private final val synthesisAreaBlocked = 2
 
-  private final val mainPiece = "main"
-  private final val structureCheckInterval = 100
   private final val oreSynthesisTimerTag = "OreSynthesisTimer"
-
-  private final val horizontalOffset = 5
-  private final val verticalOffset = 1
-  private final val depthOffset = 5
 
   private final val innerMinimumX = -4
   private final val innerMaximumX = 4
@@ -447,7 +401,7 @@ object TileAlchemicalSynthesisCore {
   private lazy val structure: IStructureDefinition[TileAlchemicalSynthesisCore] =
     StructureDefinition
       .builder[TileAlchemicalSynthesisCore]()
-      .addShape(mainPiece, this.createShape())
+      .addShape("main", this.createShape())
       .addElement(
         'R',
         StructureUtility.ofBlockAdder[TileAlchemicalSynthesisCore](

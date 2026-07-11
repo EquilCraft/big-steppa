@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.implicits
+package com.equilcraft.bigsteppa.api.internal.implicits
 
 object ConversionJavaList {
   implicit class JavaListForeach[T](val list: java.util.List[T]) extends AnyVal {

@@ -15,5 +15,5 @@ class EntityDopplegangerSpawned(val world: World) extends EntityDoppleganger(wor
 }
 
 object EntityDopplegangerSpawned {
-  lazy val playersAround: util.List[EntityPlayer] = Collections.singletonList(/*TileBeaconFarmer.fakePlayer*/ null)
+  lazy val playersAround: util.List[EntityPlayer] = Collections.singletonList(null)
 }

@@ -7,7 +7,7 @@ import net.minecraft.util.ChunkCoordinates
 
 import java.util.function.{IntFunction, LongFunction}
 
-object FastutilExtensions { // generics? no.
+object FastutilExtensions {
   @inline private final val chunkListFactory = new LongFunction[ObjectArrayList[ChunkCoordinates]] {
     override def apply(value: Long): ObjectArrayList[ChunkCoordinates] =
       new ObjectArrayList[ChunkCoordinates]()

@@ -12,10 +12,19 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.AxisAlignedBB
 
-class TileArmorStand extends TileEntity with IInventory {
+class TileArmorStand
+    extends TileEntity
+    with IInventory
+    with SpatialRegistered[TileArmorStand] {
+
   private var inventory = new Array[ItemStack](SlotCount)
 
+
+  override protected def spatialRegistry: BlocksChaosStructureRegistry[TileArmorStand] = TileArmorStand.registry
+
+
   override def canUpdate: Boolean = false
+
 
   override def getSizeInventory: Int = inventory.length
 
@@ -92,6 +101,7 @@ class TileArmorStand extends TileEntity with IInventory {
     }
   }
 
+
   override def readFromNBT(tag: NBTTagCompound): Unit = {
     super.readFromNBT(tag)
     inventory = new Array[ItemStack](SlotCount)
@@ -122,6 +132,7 @@ class TileArmorStand extends TileEntity with IInventory {
     tag.setTag("Items", items)
   }
 
+
   override def getDescriptionPacket: Packet = {
     val tag = new NBTTagCompound
     writeToNBT(tag)
@@ -151,16 +162,12 @@ class TileArmorStand extends TileEntity with IInventory {
 
   override def validate(): Unit = {
     super.validate()
-    if (!this.worldObj.isRemote) {
-      TileArmorStand.registry.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
-    }
+    spatialValidate()
   }
 
   override def invalidate(): Unit = {
     super.invalidate()
-    if (!this.worldObj.isRemote) {
-      TileArmorStand.registry.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
-    }
+    spatialInvalidate()
   }
 }
 
