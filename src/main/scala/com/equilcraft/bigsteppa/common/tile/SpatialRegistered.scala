@@ -19,21 +19,18 @@ trait SpatialRegistered[T <: TileEntity] { self: T =>
   protected def spatialRegistry: BlocksChaosStructureRegistry[T]
 
   protected def spatialWorld: World
-  protected def spatialX: Int
-  protected def spatialY: Int
-  protected def spatialZ: Int
 
   protected def spatialValidate(): Unit = {
     val world = this.spatialWorld
     if (!world.isRemote) {
-      this.spatialRegistry.add(world, this.spatialX, this.spatialY, this.spatialZ)
+      this.spatialRegistry.add(world, this.xCoord, this.yCoord, this.zCoord)
     }
   }
 
   protected def spatialInvalidate(): Unit = {
     val world = this.spatialWorld
     if (!world.isRemote) {
-      this.spatialRegistry.remove(world, this.spatialX, this.spatialY, this.spatialZ)
+      this.spatialRegistry.remove(world, this.xCoord, this.yCoord, this.zCoord)
     }
   }
 }

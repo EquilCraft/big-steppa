@@ -26,9 +26,6 @@ trait MultiblockController[T <: TileEntity] extends IConstructable { self: T =>
   protected def verticalOffset: Int
   protected def depthOffset: Int
   protected def structureWorld: World
-  protected def structureX: Int
-  protected def structureY: Int
-  protected def structureZ: Int
 
   /** Interval (in ticks) between automatic structure re-checks. */
   protected def structureCheckInterval: Int = 100
@@ -44,7 +41,7 @@ trait MultiblockController[T <: TileEntity] extends IConstructable { self: T =>
     this.structureDef.buildOrHints(
       self, trigger, this.mainPiece, this.structureWorld,
       ExtendedFacing.DEFAULT,
-      this.structureX, this.structureY, this.structureZ,
+      this.xCoord, this.yCoord, this.zCoord,
       this.horizontalOffset, this.verticalOffset, this.depthOffset,
       hintsOnly
     )
@@ -68,7 +65,7 @@ trait MultiblockController[T <: TileEntity] extends IConstructable { self: T =>
     this._structureFormed = this.structureDef.check(
       self, this.mainPiece, this.structureWorld,
       ExtendedFacing.DEFAULT,
-      this.structureX, this.structureY, this.structureZ,
+      this.xCoord, this.yCoord, this.zCoord,
       this.horizontalOffset, this.verticalOffset, this.depthOffset,
       false
     )

@@ -24,9 +24,6 @@ class TileArmorStand
 
   override protected def spatialRegistry: BlocksChaosStructureRegistry[TileArmorStand] = TileArmorStand.registry
   override protected def spatialWorld: World = this.worldObj
-  override protected def spatialX: Int = this.xCoord
-  override protected def spatialY: Int = this.yCoord
-  override protected def spatialZ: Int = this.zCoord
 
 
   override def canUpdate: Boolean = false
