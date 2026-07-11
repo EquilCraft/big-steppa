@@ -6,12 +6,9 @@ import com.equilcraft.bigsteppa.common.alchemy.alchemicalsynthesis.{
   AlchemicalRuneDefinition,
   AlchemicalSynthesisRegistry
 }
-import com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis.BlockAlchemicalSynthesisRune
+import com.equilcraft.bigsteppa.common.structure.alchemicalsynthesis.AlchemicalSynthesisStructure
 import com.equilcraft.bigsteppa.common.tile.MultiblockController
-import com.equilcraft.bigsteppa.common.init.SteppaBlocks
-import com.gtnewhorizon.structurelib.structure.adders.IBlockAdder
-import com.gtnewhorizon.structurelib.structure.{IStructureDefinition, StructureDefinition, StructureUtility}
-import net.minecraft.block.Block
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
@@ -27,7 +24,8 @@ final class TileAlchemicalSynthesisCore
   import TileAlchemicalSynthesisCore._
 
 
-  override protected def structureDef: IStructureDefinition[TileAlchemicalSynthesisCore] = structure
+  override protected def structureDef: IStructureDefinition[TileAlchemicalSynthesisCore] =
+    AlchemicalSynthesisStructure.structureDefinition
   override protected def mainPiece: String = "main"
   override protected def horizontalOffset: Int = 5
   override protected def verticalOffset: Int = 1
@@ -345,75 +343,4 @@ object TileAlchemicalSynthesisCore {
   private val veinDirectionY = Array(0, 0, 1, -1, 0, 0)
   private val veinDirectionZ = Array(0, 0, 0, 0, 1, -1)
 
-  private val runeAdder = new IBlockAdder[TileAlchemicalSynthesisCore] {
-    override def apply(core: TileAlchemicalSynthesisCore, block: Block, metadata: Int): Boolean = {
-      if (metadata != 0 || !block.isInstanceOf[BlockAlchemicalSynthesisRune]) return false
-
-      core.recordRune(block.asInstanceOf[BlockAlchemicalSynthesisRune].runeId)
-      true
-    }
-  }
-
-  private def createShape(): Array[Array[String]] = {
-    val aspectInputLayer = Array(
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "     I     ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           "
-    )
-    val topLayer = Array(
-      "RRRRRRRRRRR",
-      "R    R    R",
-      "R    R    R",
-      "R    R    R",
-      "R    R    R",
-      "RRRRR~RRRRR",
-      "R    R    R",
-      "R    R    R",
-      "R    R    R",
-      "R    R    R",
-      "RRRRRRRRRRR"
-    )
-    val runeLayer = Array(
-      "R         R",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "           ",
-      "R         R"
-    )
-    val layers = Array(aspectInputLayer, topLayer) ++ Array.fill(6)(runeLayer)
-    require(layers.iterator.flatMap(_.iterator).map(_.count(_ == 'R')).sum == 80)
-    StructureUtility.transpose(layers)
-  }
-
-  private lazy val structure: IStructureDefinition[TileAlchemicalSynthesisCore] =
-    StructureDefinition
-      .builder[TileAlchemicalSynthesisCore]()
-      .addShape("main", this.createShape())
-      .addElement(
-        'R',
-        StructureUtility.ofBlockAdder[TileAlchemicalSynthesisCore](
-          runeAdder,
-          SteppaBlocks.alchemicalSynthesisRune,
-          0
-        )
-      )
-      .addElement(
-        'I',
-        StructureUtility.ofBlock[TileAlchemicalSynthesisCore](SteppaBlocks.alchemicalSynthesisAspectInput, 0)
-      )
-      .build()
 }

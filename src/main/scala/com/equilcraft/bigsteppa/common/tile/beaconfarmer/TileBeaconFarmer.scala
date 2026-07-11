@@ -3,12 +3,11 @@ package com.equilcraft.bigsteppa.common.tile.beaconfarmer
 import com.equilcraft.bigsteppa.api.BigFakePlayer
 import com.equilcraft.bigsteppa.api.internal.BlocksChaosStructureRegistry
 import com.equilcraft.bigsteppa.common.blocks.beaconfarmer.{BlockDamageUpdate, BlockLootingUpdate, BlockStructure}
-import com.equilcraft.bigsteppa.common.init.SteppaBlocks
 import com.equilcraft.bigsteppa.common.tile.{MultiblockController, SpatialRegistered}
 import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer._
 import com.equilcraft.bigsteppa.api.internal.implicits.ConversionJavaList.JavaListForeach
-import com.gtnewhorizon.structurelib.structure.adders.IBlockAdder
-import com.gtnewhorizon.structurelib.structure.{IStructureDefinition, StructureDefinition, StructureUtility}
+import com.equilcraft.bigsteppa.common.structure.beaconfarmer.BeaconFarmerStructure
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition
 import com.mojang.authlib.GameProfile
 import net.minecraft.block.Block
 import net.minecraft.entity.player.EntityPlayer
@@ -17,7 +16,6 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.{TileEntity, TileEntityBeacon}
 import net.minecraft.util.{AxisAlignedBB, DamageSource}
-import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.entity.{EntityDoppleganger, EntityDopplegangerHelper}
 import vazkii.botania.common.item.ModItems
 import vazkii.botania.common.item.material.ItemManaResource
@@ -36,12 +34,24 @@ class TileBeaconFarmer
   private var damageUpdate: Int = 1
   private var lootUpdate: Int = 0
 
+  private[bigsteppa] def recordUpgrade(block: Block): Boolean = block match {
+    case _: BlockDamageUpdate =>
+      this.damageUpdate += 1
+      true
+    case _: BlockLootingUpdate =>
+      this.lootUpdate += 1
+      true
+    case _: BlockStructure => true
+    case _ => false
+  }
+
   lazy val fakePlayer: BigFakePlayer = BigFakePlayer
     .getFakePlayer(this.worldObj,
       new GameProfile(UUID.fromString(fakePlayerUUID), fakePlayerName))
 
 
-  override protected def structureDef: IStructureDefinition[TileBeaconFarmer] = structureDefinition
+  override protected def structureDef: IStructureDefinition[TileBeaconFarmer] =
+    BeaconFarmerStructure.structureDefinition
   override protected def mainPiece: String = "main"
   override protected def horizontalOffset: Int = 6
   override protected def verticalOffset: Int = 1
@@ -170,53 +180,4 @@ object TileBeaconFarmer {
   private final val spawnTicks = 100
   private final val radiusDamage = 15
 
-  private val upgradeBlockAdder = new IBlockAdder[TileBeaconFarmer] {
-    override def apply(tile: TileBeaconFarmer, block: Block, meta: Int): Boolean = block match {
-      case _: BlockDamageUpdate =>
-        tile.damageUpdate += 1
-        true
-      case _: BlockLootingUpdate =>
-        tile.lootUpdate += 1
-        true
-      case _: BlockStructure => true
-      case _ => false
-    }
-  }
-
-  lazy val structureDefinition: IStructureDefinition[TileBeaconFarmer] =
-    StructureDefinition.builder[TileBeaconFarmer]()
-      .addShape("main", StructureUtility.transpose(Array(
-        Array(
-          "     SSS     ",
-          "   SS   SS   ",
-          "  P       P  ",
-          " S         S ",
-          " S         S ",
-          "S           S",
-          "S           S",
-          "S           S",
-          " S         S ",
-          " S         S ",
-          "  P       P  ",
-          "   SS   SS   ",
-          "     SSS     "),
-        Array(
-          "             ",
-          "             ",
-          "             ",
-          "             ",
-          "             ",
-          "             ",
-          "      ~      ",
-          "             ",
-          "             ",
-          "             ",
-          "             ",
-          "             ",
-          "             "))))
-      .addElement('P', StructureUtility.ofBlock[TileBeaconFarmer](ModBlocks.pylon, 2))
-      .addElement(
-        'S',
-        StructureUtility.ofBlockAdder[TileBeaconFarmer](upgradeBlockAdder, SteppaBlocks.structure, 0))
-      .build()
 }
