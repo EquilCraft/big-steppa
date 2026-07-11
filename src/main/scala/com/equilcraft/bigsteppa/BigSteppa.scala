@@ -9,7 +9,7 @@ import org.apache.logging.log4j.{LogManager, Logger}
   modLanguage = "scala", acceptedMinecraftVersions = "[1.7.10]",
   dependencies = "required-after:structurelib;required-after:Thaumcraft;required-after:Botania")
 object BigSteppa {
-  val LOG: Logger = LogManager.getLogger(Tags.MOD_ID)
+  val log: Logger = LogManager.getLogger(Tags.MOD_ID)
 
   @SidedProxy(clientSide = "com.equilcraft.bigsteppa.client.ClientProxy", serverSide = "com.equilcraft.bigsteppa.common.CommonProxy")
   var proxy: CommonProxy = null

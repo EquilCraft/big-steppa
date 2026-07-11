@@ -2,7 +2,7 @@ package com.equilcraft.bigsteppa.common.tile.armorstand
 
 import com.equilcraft.bigsteppa.common.tile.SpatialRegistered
 import com.equilcraft.bigsteppa.api.internal.BlocksChaosStructureRegistry
-import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.SlotCount
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.slotCount
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
@@ -18,7 +18,7 @@ class TileArmorStand
     with IInventory
     with SpatialRegistered[TileArmorStand] {
 
-  private var inventory = new Array[ItemStack](SlotCount)
+  private var inventory = new Array[ItemStack](slotCount)
 
 
   override protected def spatialRegistry: BlocksChaosStructureRegistry[TileArmorStand] = TileArmorStand.registry
@@ -91,7 +91,7 @@ class TileArmorStand
           stack.getItem.isValidArmor(stack, slot, null)
 
   def clearWithoutSync(): Unit = {
-    inventory = new Array[ItemStack](SlotCount)
+    inventory = new Array[ItemStack](slotCount)
     markDirty()
   }
 
@@ -105,7 +105,7 @@ class TileArmorStand
 
   override def readFromNBT(tag: NBTTagCompound): Unit = {
     super.readFromNBT(tag)
-    inventory = new Array[ItemStack](SlotCount)
+    inventory = new Array[ItemStack](slotCount)
     val items = tag.getTagList("Items", 10)
 
     for (index <- 0 until items.tagCount()) {
@@ -173,11 +173,11 @@ class TileArmorStand
 }
 
 object TileArmorStand {
-  final val SlotHead = 0
-  final val SlotChest = 1
-  final val SlotLegs = 2
-  final val SlotFeet = 3
-  final val SlotCount = 4
+  final val slotHead = 0
+  final val slotChest = 1
+  final val slotLegs = 2
+  final val slotFeet = 3
+  final val slotCount = 4
 
   val registry = new BlocksChaosStructureRegistry[TileArmorStand]()
 }

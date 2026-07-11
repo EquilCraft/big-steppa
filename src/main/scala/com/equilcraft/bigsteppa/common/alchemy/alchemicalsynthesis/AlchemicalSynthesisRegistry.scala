@@ -40,7 +40,7 @@ object AlchemicalSynthesisRegistry {
       val ore = this.parseOreDefinition(definition)
       if (ore != null) {
         if (parsedOres.contains(ore.id)) {
-          BigSteppa.LOG.warn("Duplicate alchemical synthesis ore id '{}'; the last definition wins", ore.id)
+          BigSteppa.log.warn("Duplicate alchemical synthesis ore id '{}'; the last definition wins", ore.id)
         }
         parsedOres.put(ore.id, ore)
       }
@@ -54,14 +54,14 @@ object AlchemicalSynthesisRegistry {
       val rune = this.parseRuneDefinition(definition, oreIndices)
       if (rune != null) {
         if (parsedRunes.contains(rune.id)) {
-          BigSteppa.LOG.warn("Duplicate alchemical synthesis rune id '{}'; the last definition wins", rune.id)
+          BigSteppa.log.warn("Duplicate alchemical synthesis rune id '{}'; the last definition wins", rune.id)
         }
         parsedRunes.put(rune.id, rune)
       }
     }
     this.runes = parsedRunes.values.toArray
 
-    BigSteppa.LOG.info(
+    BigSteppa.log.info(
       "Loaded {} alchemical synthesis ores and {} rune effects",
       Int.box(this.ores.length),
       Int.box(this.runes.length)
@@ -113,7 +113,7 @@ object AlchemicalSynthesisRegistry {
       )
     } catch {
       case exception: Exception =>
-        BigSteppa.LOG.error(
+        BigSteppa.log.error(
           "Invalid alchemical synthesis ore definition '{}': {}",
           definition,
           exception.getMessage
@@ -163,7 +163,7 @@ object AlchemicalSynthesisRegistry {
       )
     } catch {
       case exception: Exception =>
-        BigSteppa.LOG.error(
+        BigSteppa.log.error(
           "Invalid alchemical synthesis rune definition '{}': {}",
           definition,
           exception.getMessage

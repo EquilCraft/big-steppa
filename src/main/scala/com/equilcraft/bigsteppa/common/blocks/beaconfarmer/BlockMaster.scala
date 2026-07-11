@@ -22,7 +22,7 @@ class BlockMaster extends Block(Material.iron) {
       }
     }
 
-    BigSteppa.LOG.info("Structure has coordinates: " + structureCords.mkString("(", ", ", ")"))
+    BigSteppa.log.info("Structure has coordinates: " + structureCords.mkString("(", ", ", ")"))
 
     true
   }

@@ -2,7 +2,7 @@ package com.equilcraft.bigsteppa.common.inventory.armorstand
 
 import com.equilcraft.bigsteppa.common.inventory.armorstand.ContainerArmorStand._
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
-import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.SlotCount
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.slotCount
 import net.minecraft.entity.player.{EntityPlayer, InventoryPlayer}
 import net.minecraft.inventory.{Container, Slot}
 import net.minecraft.item.ItemStack
@@ -12,7 +12,7 @@ class ContainerArmorStand(
   armorStand: TileArmorStand
 ) extends Container {
 
-  for (armorType <- 0 until SlotCount) {
+  for (armorType <- 0 until slotCount) {
     addSlotToContainer(
       new SlotArmorStand(armorStand, armorType, 80, 8 + armorType * 18, armorType)
     )
@@ -36,7 +36,7 @@ class ContainerArmorStand(
     addSlotToContainer(new Slot(playerInventory, column, 8 + column * 18, 142))
   }
 
-  for (armorType <- 0 until SlotCount) {
+  for (armorType <- 0 until slotCount) {
     val playerInventorySlot = 39 - armorType
     addSlotToContainer(
       new SlotArmorStand(
@@ -66,26 +66,26 @@ class ContainerArmorStand(
     val armorType = getArmorType(source)
 
     val moved =
-      if (index >= StandStart && index < StandEnd) {
-        val playerArmorIndex = PlayerArmorStart + index
+      if (index >= standStart && index < standEnd) {
+        val playerArmorIndex = playerArmorStart + index
         mergeItemStack(source, playerArmorIndex, playerArmorIndex + 1, false) ||
-          mergeItemStack(source, PlayerMainStart, HotbarEnd, true)
-      } else if (index >= PlayerArmorStart && index < PlayerArmorEnd) {
-        val standIndex = index - PlayerArmorStart
+          mergeItemStack(source, playerMainStart, hotbarEnd, true)
+      } else if (index >= playerArmorStart && index < playerArmorEnd) {
+        val standIndex = index - playerArmorStart
         mergeItemStack(source, standIndex, standIndex + 1, false) ||
-          mergeItemStack(source, PlayerMainStart, HotbarEnd, true)
+          mergeItemStack(source, playerMainStart, hotbarEnd, true)
       } else if (armorType >= 0) {
         mergeItemStack(source, armorType, armorType + 1, false) ||
           mergeItemStack(
             source,
-            PlayerArmorStart + armorType,
-            PlayerArmorStart + armorType + 1,
+            playerArmorStart + armorType,
+            playerArmorStart + armorType + 1,
             false
           )
-      } else if (index >= PlayerMainStart && index < PlayerMainEnd) {
-        mergeItemStack(source, HotbarStart, HotbarEnd, false)
-      } else if (index >= HotbarStart && index < HotbarEnd) {
-        mergeItemStack(source, PlayerMainStart, PlayerMainEnd, false)
+      } else if (index >= playerMainStart && index < playerMainEnd) {
+        mergeItemStack(source, hotbarStart, hotbarEnd, false)
+      } else if (index >= hotbarStart && index < hotbarEnd) {
+        mergeItemStack(source, playerMainStart, playerMainEnd, false)
       } else {
         false
       }
@@ -102,18 +102,18 @@ class ContainerArmorStand(
   }
 
   private def getArmorType(stack: ItemStack): Int =
-    (0 until SlotCount)
+    (0 until slotCount)
       .find(SlotArmorStand.isValidArmor(stack, _))
       .getOrElse(-1)
 }
 
 object ContainerArmorStand {
-  private final val StandStart = 0
-  private final val StandEnd = 4
-  private final val PlayerMainStart = 4
-  private final val PlayerMainEnd = 31
-  private final val HotbarStart = 31
-  private final val HotbarEnd = 40
-  private final val PlayerArmorStart = 40
-  private final val PlayerArmorEnd = 44
+  private final val standStart = 0
+  private final val standEnd = 4
+  private final val playerMainStart = 4
+  private final val playerMainEnd = 31
+  private final val hotbarStart = 31
+  private final val hotbarEnd = 40
+  private final val playerArmorStart = 40
+  private final val playerArmorEnd = 44
 }

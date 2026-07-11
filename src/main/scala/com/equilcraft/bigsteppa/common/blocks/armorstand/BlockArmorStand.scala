@@ -2,7 +2,7 @@ package com.equilcraft.bigsteppa.common.blocks.armorstand
 
 import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.tile.TileArmorStand
-import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.{SlotCount, SlotFeet, SlotLegs}
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.{slotCount, slotFeet, slotLegs, slotChest, slotHead}
 import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
 import net.minecraft.block.{Block, BlockContainer}
 import net.minecraft.block.material.Material
@@ -131,7 +131,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
             world.isBlockIndirectlyGettingPowered(x, lowerY, z) ||
               world.isBlockIndirectlyGettingPowered(x, lowerY + 1, z)
           if (powered) {
-            for (slot <- 0 until SlotCount) {
+            for (slot <- 0 until slotCount) {
               swapWithPlayer(player, armorStand, slot)
             }
           } else {
@@ -172,9 +172,9 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
 
   private def clickedSlot(metadata: Int, hitY: Float): Int =
     if ((metadata & 4) == 0) {
-      if (hitY < 0.5F) SlotFeet else SlotLegs
+      if (hitY < 0.5F) slotFeet else slotLegs
     } else {
-      if (hitY < 0.5F) TileArmorStand.SlotChest else TileArmorStand.SlotHead
+      if (hitY < 0.5F) slotChest else slotHead
     }
 
   private def swapWithPlayer(

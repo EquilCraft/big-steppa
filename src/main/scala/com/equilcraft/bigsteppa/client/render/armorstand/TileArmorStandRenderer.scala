@@ -56,10 +56,10 @@ class TileArmorStandRenderer extends TileEntitySpecialRenderer {
     partialTicks: Float
   ): Unit = {
     ensureDummy(armorStand.getWorldObj)
-    armorDummy.setCurrentItemOrArmor(4, armorStand.getStackInSlot(SlotHead))
-    armorDummy.setCurrentItemOrArmor(3, armorStand.getStackInSlot(SlotChest))
-    armorDummy.setCurrentItemOrArmor(2, armorStand.getStackInSlot(SlotLegs))
-    armorDummy.setCurrentItemOrArmor(1, armorStand.getStackInSlot(SlotFeet))
+    armorDummy.setCurrentItemOrArmor(4, armorStand.getStackInSlot(slotHead))
+    armorDummy.setCurrentItemOrArmor(3, armorStand.getStackInSlot(slotChest))
+    armorDummy.setCurrentItemOrArmor(2, armorStand.getStackInSlot(slotLegs))
+    armorDummy.setCurrentItemOrArmor(1, armorStand.getStackInSlot(slotFeet))
     armorDummy.setPosition(
       armorStand.xCoord + 0.5D,
       armorStand.yCoord,

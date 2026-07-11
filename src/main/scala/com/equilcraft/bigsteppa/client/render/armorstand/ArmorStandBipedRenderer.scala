@@ -21,10 +21,10 @@ private[render] class ArmorStandBipedRenderer
   }
 
   override protected def getEntityTexture(entity: EntityLiving): ResourceLocation =
-    ArmorStandBipedRenderer.SteveTexture
+    ArmorStandBipedRenderer.steveTexture
 }
 
 private object ArmorStandBipedRenderer {
-  val SteveTexture =
+  val steveTexture =
     new ResourceLocation("minecraft", "textures/entity/steve.png")
 }
