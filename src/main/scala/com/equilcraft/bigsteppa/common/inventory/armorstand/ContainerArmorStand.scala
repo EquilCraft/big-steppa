@@ -1,8 +1,8 @@
-package com.equilcraft.bigsteppa.common.inventory
+package com.equilcraft.bigsteppa.common.inventory.armorstand
 
-import com.equilcraft.bigsteppa.common.inventory.ContainerArmorStand._
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand.SlotCount
+import com.equilcraft.bigsteppa.common.inventory.armorstand.ContainerArmorStand._
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.SlotCount
 import net.minecraft.entity.player.{EntityPlayer, InventoryPlayer}
 import net.minecraft.inventory.{Container, Slot}
 import net.minecraft.item.ItemStack

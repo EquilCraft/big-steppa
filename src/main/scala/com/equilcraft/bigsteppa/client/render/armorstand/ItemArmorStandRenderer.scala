@@ -1,6 +1,6 @@
-package com.equilcraft.bigsteppa.client.render
+package com.equilcraft.bigsteppa.client.render.armorstand
 
-import com.equilcraft.bigsteppa.client.model.ModelArmorStand
+import com.equilcraft.bigsteppa.client.model.armorstand.ModelArmorStand
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.IItemRenderer
 import net.minecraftforge.client.IItemRenderer.{ItemRenderType, ItemRendererHelper}

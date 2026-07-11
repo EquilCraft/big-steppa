@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.block
+package com.equilcraft.bigsteppa.common.blocks.beaconfarmer
 
 import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer
 import net.minecraft.block.{Block, ITileEntityProvider}

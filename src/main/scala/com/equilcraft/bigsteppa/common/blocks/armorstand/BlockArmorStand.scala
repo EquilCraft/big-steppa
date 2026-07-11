@@ -1,9 +1,9 @@
-package com.equilcraft.bigsteppa.common.block
+package com.equilcraft.bigsteppa.common.blocks.armorstand
 
 import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.gui.ArmorStandGuiHandler
 import com.equilcraft.bigsteppa.common.tile.TileArmorStand
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand.{SlotCount, SlotFeet, SlotLegs}
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.{SlotCount, SlotFeet, SlotLegs}
 import net.minecraft.block.{Block, BlockContainer}
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.texture.IIconRegister

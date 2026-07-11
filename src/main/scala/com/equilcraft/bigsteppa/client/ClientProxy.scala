@@ -1,6 +1,6 @@
 package com.equilcraft.bigsteppa.client
 
-import com.equilcraft.bigsteppa.client.render.{ItemArmorStandRenderer, TileArmorStandRenderer}
+import com.equilcraft.bigsteppa.client.render.armorstand.{ItemArmorStandRenderer, TileArmorStandRenderer}
 import com.equilcraft.bigsteppa.common.CommonProxy
 import com.equilcraft.bigsteppa.common.init.SteppaBlocks
 import com.equilcraft.bigsteppa.common.tile.TileArmorStand

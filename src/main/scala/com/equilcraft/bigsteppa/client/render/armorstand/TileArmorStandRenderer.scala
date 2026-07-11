@@ -1,8 +1,8 @@
-package com.equilcraft.bigsteppa.client.render
+package com.equilcraft.bigsteppa.client.render.armorstand
 
-import com.equilcraft.bigsteppa.client.model.ModelArmorStand
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand._
+import com.equilcraft.bigsteppa.client.model.armorstand.ModelArmorStand
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand._
 import net.minecraft.client.renderer.entity.RenderManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.entity.EntityLiving

@@ -1,6 +1,6 @@
-package com.equilcraft.bigsteppa.common.inventory
+package com.equilcraft.bigsteppa.common.inventory.armorstand
 
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import net.minecraft.inventory.{IInventory, Slot}
 import net.minecraft.item.ItemStack
 

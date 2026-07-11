@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.client.model
+package com.equilcraft.bigsteppa.client.model.armorstand
 
 import net.minecraft.client.model.{ModelBase, ModelRenderer}
 

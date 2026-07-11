@@ -1,6 +1,6 @@
-package com.equilcraft.bigsteppa.common.block.multiblock
+package com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis
 
-import com.equilcraft.bigsteppa.common.tile.TileAlchemicalSynthesisAspectInput
+import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.TileAlchemicalSynthesisAspectInput
 import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.block.material.Material
 import net.minecraft.creativetab.CreativeTabs

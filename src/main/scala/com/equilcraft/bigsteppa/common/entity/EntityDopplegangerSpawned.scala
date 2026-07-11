@@ -1,7 +1,7 @@
 package com.equilcraft.bigsteppa.common.entity
 
 import com.equilcraft.bigsteppa.common.entity.EntityDopplegangerSpawned.playersAround
-import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer
+import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.{World, WorldServer}

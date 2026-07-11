@@ -1,6 +1,6 @@
 package vazkii.botania.common.entity
 
-import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer
+import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer
 
 import java.util
 

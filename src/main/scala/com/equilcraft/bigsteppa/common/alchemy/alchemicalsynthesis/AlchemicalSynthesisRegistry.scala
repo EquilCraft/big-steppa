@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.alchemy
+package com.equilcraft.bigsteppa.common.alchemy.alchemicalsynthesis
 
 import com.equilcraft.bigsteppa.{BigSteppa, Config}
 import cpw.mods.fml.common.registry.GameRegistry

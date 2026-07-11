@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.client.render
+package com.equilcraft.bigsteppa.client.render.armorstand
 
 import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.entity.RenderBiped

@@ -1,8 +1,8 @@
 package com.equilcraft.bigsteppa.common.gui
 
-import com.equilcraft.bigsteppa.client.gui.GuiArmorStand
-import com.equilcraft.bigsteppa.common.inventory.ContainerArmorStand
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand
+import com.equilcraft.bigsteppa.client.gui.armorstand.GuiArmorStand
+import com.equilcraft.bigsteppa.common.inventory.armorstand.ContainerArmorStand
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import cpw.mods.fml.common.network.IGuiHandler
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World

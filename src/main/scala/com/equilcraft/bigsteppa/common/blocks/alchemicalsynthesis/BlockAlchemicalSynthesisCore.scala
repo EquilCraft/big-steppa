@@ -1,7 +1,7 @@
-package com.equilcraft.bigsteppa.common.block.multiblock
+package com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis
 
 import com.equilcraft.bigsteppa.common.block.BlockMultiblockController
-import com.equilcraft.bigsteppa.common.tile.TileAlchemicalSynthesisCore
+import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.TileAlchemicalSynthesisCore
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.creativetab.CreativeTabs

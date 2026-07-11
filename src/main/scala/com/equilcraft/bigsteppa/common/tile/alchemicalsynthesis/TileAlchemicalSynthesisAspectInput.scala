@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.tile
+package com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis
 
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.{NetworkManager, Packet}
