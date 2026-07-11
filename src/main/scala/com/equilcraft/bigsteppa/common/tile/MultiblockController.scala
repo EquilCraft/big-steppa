@@ -5,6 +5,7 @@ import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.world.World
 
 /**
  * Base trait for multiblock structure controllers.
@@ -24,6 +25,10 @@ trait MultiblockController[T <: TileEntity] extends IConstructable { self: T =>
   protected def horizontalOffset: Int
   protected def verticalOffset: Int
   protected def depthOffset: Int
+  protected def structureWorld: World
+  protected def structureX: Int
+  protected def structureY: Int
+  protected def structureZ: Int
 
   /** Interval (in ticks) between automatic structure re-checks. */
   protected def structureCheckInterval: Int = 100
@@ -31,46 +36,46 @@ trait MultiblockController[T <: TileEntity] extends IConstructable { self: T =>
   private var _structureFormed: Boolean = false
   private var _ticksUntilCheck: Int = 0
 
-  def isStructureFormed: Boolean = _structureFormed
+  def isStructureFormed: Boolean = this._structureFormed
 
   // === IConstructable implementation ===
 
   override def construct(trigger: ItemStack, hintsOnly: Boolean): Unit =
-    structureDef.buildOrHints(
-      self, trigger, mainPiece, worldObj,
+    this.structureDef.buildOrHints(
+      self, trigger, this.mainPiece, this.structureWorld,
       ExtendedFacing.DEFAULT,
-      xCoord, yCoord, zCoord,
-      horizontalOffset, verticalOffset, depthOffset,
+      this.structureX, this.structureY, this.structureZ,
+      this.horizontalOffset, this.verticalOffset, this.depthOffset,
       hintsOnly
     )
 
-  override def getStructureDefinition: IStructureDefinition[T] = structureDef
+  override def getStructureDefinition: IStructureDefinition[T] = this.structureDef
 
   // === Periodic structure checking ===
 
   /** Schedule an immediate structure check on next tick. */
-  def scheduleStructureCheck(): Unit = _ticksUntilCheck = 0
+  def scheduleStructureCheck(): Unit = this._ticksUntilCheck = 0
 
   /** Call from updateEntity() to handle periodic structure checks. */
   protected def tickStructureCheck(): Unit = {
-    if (_ticksUntilCheck > 0) _ticksUntilCheck -= 1
-    if (_ticksUntilCheck == 0) checkStructureNow()
+    if (this._ticksUntilCheck > 0) this._ticksUntilCheck -= 1
+    if (this._ticksUntilCheck == 0) this.checkStructureNow()
   }
 
   /** Perform an immediate structure check. Returns true if structure is formed. */
   def checkStructureNow(): Boolean = {
-    onPreStructureCheck()
-    _structureFormed = structureDef.check(
-      self, mainPiece, worldObj,
+    this.onPreStructureCheck()
+    this._structureFormed = this.structureDef.check(
+      self, this.mainPiece, this.structureWorld,
       ExtendedFacing.DEFAULT,
-      xCoord, yCoord, zCoord,
-      horizontalOffset, verticalOffset, depthOffset,
+      this.structureX, this.structureY, this.structureZ,
+      this.horizontalOffset, this.verticalOffset, this.depthOffset,
       false
     )
-    if (_structureFormed) onStructureFormed()
-    else onStructureBroken()
-    _ticksUntilCheck = structureCheckInterval
-    _structureFormed
+    if (this._structureFormed) this.onStructureFormed()
+    else this.onStructureBroken()
+    this._ticksUntilCheck = this.structureCheckInterval
+    this._structureFormed
   }
 
   // === Hooks for concrete implementations ===

@@ -57,6 +57,10 @@ class TileBeaconFarmer
   override protected def horizontalOffset: Int = 6
   override protected def verticalOffset: Int = 1
   override protected def depthOffset: Int = 6
+  override protected def structureWorld: World = this.worldObj
+  override protected def structureX: Int = this.xCoord
+  override protected def structureY: Int = this.yCoord
+  override protected def structureZ: Int = this.zCoord
 
 
   override protected def spatialRegistry: BlocksChaosStructureRegistry[TileBeaconFarmer] = TileBeaconFarmer.registry

@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.StatCollector
+import net.minecraft.world.World
 import thaumcraft.api.aspects.AspectList
 
 import java.util
@@ -30,6 +31,10 @@ final class TileAlchemicalSynthesisCore
   override protected def horizontalOffset: Int = 5
   override protected def verticalOffset: Int = 1
   override protected def depthOffset: Int = 5
+  override protected def structureWorld: World = this.worldObj
+  override protected def structureX: Int = this.xCoord
+  override protected def structureY: Int = this.yCoord
+  override protected def structureZ: Int = this.zCoord
 
 
   override protected def onPreStructureCheck(): Unit = this.runeCounts.clear()
