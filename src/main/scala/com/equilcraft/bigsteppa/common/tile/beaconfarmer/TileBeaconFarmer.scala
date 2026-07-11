@@ -16,6 +16,7 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.{TileEntity, TileEntityBeacon}
 import net.minecraft.util.{AxisAlignedBB, DamageSource}
+import net.minecraft.world.World
 import vazkii.botania.common.entity.{EntityDoppleganger, EntityDopplegangerHelper}
 import vazkii.botania.common.item.ModItems
 import vazkii.botania.common.item.material.ItemManaResource
@@ -59,6 +60,10 @@ class TileBeaconFarmer
 
 
   override protected def spatialRegistry: BlocksChaosStructureRegistry[TileBeaconFarmer] = TileBeaconFarmer.registry
+  override protected def spatialWorld: World = this.worldObj
+  override protected def spatialX: Int = this.xCoord
+  override protected def spatialY: Int = this.yCoord
+  override protected def spatialZ: Int = this.zCoord
 
 
   override protected def onPreStructureCheck(): Unit = {

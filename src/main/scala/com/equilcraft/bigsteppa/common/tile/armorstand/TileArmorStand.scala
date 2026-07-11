@@ -12,6 +12,7 @@ import net.minecraft.network.{NetworkManager, Packet}
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.AxisAlignedBB
+import net.minecraft.world.World
 
 class TileArmorStand
     extends TileEntity
@@ -22,6 +23,10 @@ class TileArmorStand
 
 
   override protected def spatialRegistry: BlocksChaosStructureRegistry[TileArmorStand] = TileArmorStand.registry
+  override protected def spatialWorld: World = this.worldObj
+  override protected def spatialX: Int = this.xCoord
+  override protected def spatialY: Int = this.yCoord
+  override protected def spatialZ: Int = this.zCoord
 
 
   override def canUpdate: Boolean = false

@@ -2,6 +2,7 @@ package com.equilcraft.bigsteppa.common.tile
 
 import com.equilcraft.bigsteppa.api.internal.BlocksChaosStructureRegistry
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.world.World
 
 /**
  * Optional trait for TileEntities that need spatial proximity search registration.
@@ -17,15 +18,22 @@ trait SpatialRegistered[T <: TileEntity] { self: T =>
   /** The registry instance this tile registers with (typically defined in the companion object). */
   protected def spatialRegistry: BlocksChaosStructureRegistry[T]
 
+  protected def spatialWorld: World
+  protected def spatialX: Int
+  protected def spatialY: Int
+  protected def spatialZ: Int
+
   protected def spatialValidate(): Unit = {
-    if (!this.worldObj.isRemote) {
-      spatialRegistry.add(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
+    val world = this.spatialWorld
+    if (!world.isRemote) {
+      this.spatialRegistry.add(world, this.spatialX, this.spatialY, this.spatialZ)
     }
   }
 
   protected def spatialInvalidate(): Unit = {
-    if (!this.worldObj.isRemote) {
-      spatialRegistry.remove(this.worldObj, this.xCoord, this.yCoord, this.zCoord)
+    val world = this.spatialWorld
+    if (!world.isRemote) {
+      this.spatialRegistry.remove(world, this.spatialX, this.spatialY, this.spatialZ)
     }
   }
 }
