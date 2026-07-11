@@ -1,9 +1,9 @@
 package com.equilcraft.bigsteppa.common.blocks.armorstand
 
 import com.equilcraft.bigsteppa.BigSteppa
-import com.equilcraft.bigsteppa.common.gui.ArmorStandGuiHandler
 import com.equilcraft.bigsteppa.common.tile.TileArmorStand
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.{SlotCount, SlotFeet, SlotLegs}
+import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
 import net.minecraft.block.{Block, BlockContainer}
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.texture.IIconRegister
@@ -157,7 +157,7 @@ class BlockArmorStand extends BlockContainer(Material.wood) {
           } else {
             player.openGui(
               BigSteppa,
-              ArmorStandGuiHandler.GuiId,
+              ArmorStandGuiProvider.armorStandGuiId,
               world,
               x,
               lowerY,
