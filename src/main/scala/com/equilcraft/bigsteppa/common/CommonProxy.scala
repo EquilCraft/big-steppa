@@ -1,7 +1,7 @@
 package com.equilcraft.bigsteppa.common
 
 import com.equilcraft.bigsteppa.{BigSteppa, Config}
-import com.equilcraft.bigsteppa.common.alchemy.alchemicalsynthesis.AlchemicalSynthesisRegistry
+import com.equilcraft.bigsteppa.common.init.AlchemicalSynthesisRegistry
 import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
 import com.equilcraft.bigsteppa.common.gui.{GuiHandler, GuiRegistry}
 import com.equilcraft.bigsteppa.common.init.{SteppaBlocks, SteppaEntities}

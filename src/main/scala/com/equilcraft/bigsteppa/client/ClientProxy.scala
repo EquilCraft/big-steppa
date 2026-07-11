@@ -6,7 +6,7 @@ import com.equilcraft.bigsteppa.common.CommonProxy
 import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
 import com.equilcraft.bigsteppa.common.gui.GuiRegistry
 import com.equilcraft.bigsteppa.common.init.SteppaBlocks
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import cpw.mods.fml.client.registry.ClientRegistry
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import net.minecraft.item.Item

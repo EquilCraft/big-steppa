@@ -1,8 +1,8 @@
 package com.equilcraft.bigsteppa.mixins.late.botania;
 
 import com.equilcraft.bigsteppa.api.BigFakePlayer;
-import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer;
-import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer$;
+import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer;
+import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer$;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

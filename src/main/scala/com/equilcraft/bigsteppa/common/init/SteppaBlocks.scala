@@ -2,7 +2,8 @@ package com.equilcraft.bigsteppa.common.init
 
 import com.equilcraft.bigsteppa.Tags
 import com.equilcraft.bigsteppa.common.block.armorstand.BlockArmorStand
-import com.equilcraft.bigsteppa.common.block.beaconfarmer.{BlockBeaconFarmer, BlockMaster, BlockStructure}
+import com.equilcraft.bigsteppa.common.block.beaconfarmer.BlockBeaconFarmer
+import com.equilcraft.bigsteppa.common.block.build.{BlockMaster, BlockStructure}
 import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.{
   BlockAbundanceAlchemicalSynthesisRune,
   BlockAlchemicalSynthesisAspectInput,
@@ -19,7 +20,8 @@ import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.{
   BlockStabilizedAlchemicalSynthesisRune,
   BlockWaterAlchemicalSynthesisRune
 }
-import com.equilcraft.bigsteppa.common.tile.{TileArmorStand, TileBeaconFarmer}
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
+import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer
 import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.{
   TileAlchemicalSynthesisAspectInput,
   TileAlchemicalSynthesisCore

@@ -2,7 +2,8 @@ package com.equilcraft.bigsteppa.common.tile.beaconfarmer
 
 import com.equilcraft.bigsteppa.api.BigFakePlayer
 import com.equilcraft.bigsteppa.api.internal.BlocksChaosStructureRegistry
-import com.equilcraft.bigsteppa.common.block.beaconfarmer.{BlockDamageUpdate, BlockLootingUpdate, BlockStructure}
+import com.equilcraft.bigsteppa.common.block.beaconfarmer.{BlockDamageUpdate, BlockLootingUpdate}
+import com.equilcraft.bigsteppa.common.block.build.BlockStructure
 import com.equilcraft.bigsteppa.common.tile.{MultiblockController, SpatialRegistered}
 import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer._
 import com.equilcraft.bigsteppa.api.internal.implicits.ConversionJavaList.JavaListForeach

@@ -1,8 +1,8 @@
 package com.equilcraft.bigsteppa.mixins.late.thaumicenergistics.stand;
 
 import appeng.tile.grid.AENetworkInvTile;
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand;
-import com.equilcraft.bigsteppa.common.tile.TileArmorStand$;
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand;
+import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand$;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

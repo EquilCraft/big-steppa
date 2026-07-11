@@ -1,11 +1,7 @@
 package com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis
 
 import com.equilcraft.bigsteppa.Config
-import com.equilcraft.bigsteppa.common.alchemy.alchemicalsynthesis.{
-  AlchemicalOreDefinition,
-  AlchemicalRuneDefinition,
-  AlchemicalSynthesisRegistry
-}
+import com.equilcraft.bigsteppa.common.init.{AlchemicalOreDefinition, AlchemicalRuneDefinition, AlchemicalSynthesisRegistry}
 import com.equilcraft.bigsteppa.common.structure.alchemicalsynthesis.AlchemicalSynthesisStructure
 import com.equilcraft.bigsteppa.common.tile.MultiblockController
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition

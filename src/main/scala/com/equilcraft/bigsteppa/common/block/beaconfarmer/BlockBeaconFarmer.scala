@@ -1,6 +1,6 @@
 package com.equilcraft.bigsteppa.common.block.beaconfarmer
 
-import com.equilcraft.bigsteppa.common.tile.TileBeaconFarmer
+import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer
 import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.EntityPlayer
