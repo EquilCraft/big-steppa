@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis
+package com.equilcraft.bigsteppa.common.block.alchemicalsynthesis
 
 import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.TileAlchemicalSynthesisAspectInput
 import net.minecraft.block.{Block, ITileEntityProvider}

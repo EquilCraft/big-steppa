@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis
+package com.equilcraft.bigsteppa.common.block.alchemicalsynthesis
 
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material

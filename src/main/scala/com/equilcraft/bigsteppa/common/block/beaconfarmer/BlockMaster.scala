@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.blocks.beaconfarmer
+package com.equilcraft.bigsteppa.common.block.beaconfarmer
 
 import com.equilcraft.bigsteppa.BigSteppa
 import net.minecraft.block.Block

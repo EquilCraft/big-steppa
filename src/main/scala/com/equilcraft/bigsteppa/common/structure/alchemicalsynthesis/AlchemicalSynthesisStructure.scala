@@ -1,6 +1,6 @@
 package com.equilcraft.bigsteppa.common.structure.alchemicalsynthesis
 
-import com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis.BlockAlchemicalSynthesisRune
+import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.BlockAlchemicalSynthesisRune
 import com.equilcraft.bigsteppa.common.init.SteppaBlocks
 import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.TileAlchemicalSynthesisCore
 import com.gtnewhorizon.structurelib.structure.adders.IBlockAdder

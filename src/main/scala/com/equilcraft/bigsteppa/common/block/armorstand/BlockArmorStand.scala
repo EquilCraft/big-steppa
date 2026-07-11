@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.blocks.armorstand
+package com.equilcraft.bigsteppa.common.block.armorstand
 
 import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.tile.TileArmorStand

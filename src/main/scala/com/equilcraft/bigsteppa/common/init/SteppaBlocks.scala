@@ -1,9 +1,9 @@
 package com.equilcraft.bigsteppa.common.init
 
 import com.equilcraft.bigsteppa.Tags
-import com.equilcraft.bigsteppa.common.blocks.armorstand.BlockArmorStand
-import com.equilcraft.bigsteppa.common.blocks.beaconfarmer.{BlockBeaconFarmer, BlockMaster, BlockStructure}
-import com.equilcraft.bigsteppa.common.blocks.alchemicalsynthesis.{
+import com.equilcraft.bigsteppa.common.block.armorstand.BlockArmorStand
+import com.equilcraft.bigsteppa.common.block.beaconfarmer.{BlockBeaconFarmer, BlockMaster, BlockStructure}
+import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.{
   BlockAbundanceAlchemicalSynthesisRune,
   BlockAlchemicalSynthesisAspectInput,
   BlockAlchemicalSynthesisCore,
