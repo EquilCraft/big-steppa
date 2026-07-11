@@ -14,7 +14,7 @@
 - **Functional Style:** Strictly follow a functional programming style by default (immutability, pure functions, higher-order functions).
 - **Optimization First:** Optimization is the absolute **top priority**. You are explicitly allowed and encouraged to violate functional programming principles (e.g., using `var`, mutable collections, while loops) if it is necessary for optimization or performance improvements.
 - **Internal API Implicits:** Do not forget to use the Scala `implicit` conversions and helpers provided in `api/internal` when necessary. These are designed to optimize operations (like Java collection conversions) and keep the code clean. If strictly necessary for optimization or cleaner code, you should write your own custom implicits.
-- **Naming Conventions:** All constants and `final val` declarations must start with a lowercase letter (camelCase). For example, use `playerArmorStart` instead of `PlayerArmorStart`.
+- **Naming Conventions:** All constants and `final val` declarations must start with a lowercase letter (camelCase). For example, use `playerArmorStart` instead of `PlayerArmorStart`. Package names MUST NOT use underscores (`_`).
 - **Comments:** Comments MUST be written in **English only**, and they are STRICTLY RESTRICTED to the `api/` package. The only exceptions are API-like base classes outside of `api/` (such as `BlockMultiblockController`, `MultiblockController`, and `SpatialRegistered`), which already have detailed comments that must not be modified or removed. Standard tiles, blocks, items, etc., MUST NOT contain any comments whatsoever. Do not add section headers like `// === Section ===`.
 
 ## Project Structure & Architecture
