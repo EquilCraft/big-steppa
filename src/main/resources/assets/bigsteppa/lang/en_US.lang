@@ -1,4 +1,7 @@
 tile.armorStand.name=Armor Stand
+tile.AdvancedArcaneBore.name=Advanced Arcane Bore
+tile.AdvancedArcaneBoreBase.name=Advanced Arcane Bore Base
+container.bigsteppa.advancedArcaneBore=Advanced Arcane Bore
 container.bigsteppa.armorStand=Armor Stand
 tile.alchemicalSynthesisCore.name=Alchemical Synthesis Core
 tile.alchemicalSynthesisAspectInput.name=Alchemical Synthesis Aspect Intake

@@ -1,6 +1,12 @@
 package com.equilcraft.bigsteppa.common.init
 
 import com.equilcraft.bigsteppa.Tags
+import com.equilcraft.bigsteppa.common.block.advancedarcanebore.{
+  BlockAdvancedArcaneBore,
+  BlockAdvancedArcaneBoreBase,
+  ItemBlockAdvancedArcaneBore,
+  ItemBlockAdvancedArcaneBoreBase
+}
 import com.equilcraft.bigsteppa.common.block.armorstand.BlockArmorStand
 import com.equilcraft.bigsteppa.common.block.beaconfarmer.BlockBeaconFarmer
 import com.equilcraft.bigsteppa.common.block.build.{BlockMaster, BlockStructure}
@@ -22,10 +28,13 @@ import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.{
 }
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer
+import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBore
+import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBoreBase
 import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.{
   TileAlchemicalSynthesisAspectInput,
   TileAlchemicalSynthesisCore
 }
+import thaumcraft.common.config.ConfigBlocks
 import cpw.mods.fml.common.registry.GameRegistry
 import net.minecraft.block.Block
 import net.minecraft.init.{Blocks, Items}
@@ -53,6 +62,8 @@ object SteppaBlocks {
   var earthAlchemicalSynthesisRune: Block = null
   var orderAlchemicalSynthesisRune: Block = null
   var entropyAlchemicalSynthesisRune: Block = null
+  var advancedArcaneBore: Block = null
+  var advancedArcaneBoreBase: Block = null
 
   def registerBlocks(): Unit = {
     master = this.registerBlock(classOf[BlockMaster], "blockMaster").setBlockName("blockMaster")
@@ -96,6 +107,12 @@ object SteppaBlocks {
     entropyAlchemicalSynthesisRune =
       this.registerBlock(new BlockEntropyAlchemicalSynthesisRune, "entropyAlchemicalSynthesisRune")
         .setBlockName("entropyAlchemicalSynthesisRune")
+    advancedArcaneBoreBase = GameRegistry
+      .registerBlock(new BlockAdvancedArcaneBoreBase, classOf[ItemBlockAdvancedArcaneBoreBase], "AdvancedArcaneBoreBase")
+      .setBlockName("AdvancedArcaneBoreBase")
+    advancedArcaneBore = GameRegistry
+      .registerBlock(new BlockAdvancedArcaneBore, classOf[ItemBlockAdvancedArcaneBore], "AdvancedArcaneBore")
+      .setBlockName("AdvancedArcaneBore")
     alchemicalSynthesisCore =
       this.registerBlock(new BlockAlchemicalSynthesisCore, "alchemicalSynthesisCore")
         .setBlockName("alchemicalSynthesisCore")
@@ -109,6 +126,8 @@ object SteppaBlocks {
     this.registerTileEntity(classOf[TileArmorStand], "tileArmorStand")
     this.registerTileEntity(classOf[TileAlchemicalSynthesisCore], "tileAlchemicalSynthesisCore")
     this.registerTileEntity(classOf[TileAlchemicalSynthesisAspectInput], "tileAlchemicalSynthesisAspectInput")
+    this.registerTileEntity(classOf[TileAdvancedArcaneBore], "tileAdvancedArcaneBore")
+    this.registerTileEntity(classOf[TileAdvancedArcaneBoreBase], "tileAdvancedArcaneBoreBase")
   }
 
   def registerRecipes(): Unit = {
@@ -121,6 +140,34 @@ object SteppaBlocks {
       Items.iron_ingot,
       Character.valueOf('S'),
       new ItemStack(Blocks.stone_slab, 1, 0)
+    )
+    GameRegistry.addRecipe(
+      new ItemStack(advancedArcaneBore),
+      "GPG",
+      "DID",
+      " B ",
+      Character.valueOf('G'),
+      new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+      Character.valueOf('P'),
+      Blocks.piston,
+      Character.valueOf('D'),
+      Items.diamond,
+      Character.valueOf('I'),
+      Items.gold_ingot,
+      Character.valueOf('B'),
+      new ItemStack(advancedArcaneBoreBase)
+    )
+    GameRegistry.addRecipe(
+      new ItemStack(advancedArcaneBoreBase),
+      "GIG",
+      "IDI",
+      "GIG",
+      Character.valueOf('G'),
+      new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+      Character.valueOf('I'),
+      Items.iron_ingot,
+      Character.valueOf('D'),
+      Blocks.dispenser
     )
   }
 

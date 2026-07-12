@@ -1,4 +1,7 @@
 tile.armorStand.name=Стойка для брони
+tile.AdvancedArcaneBore.name=Улучшенный магический бур
+tile.AdvancedArcaneBoreBase.name=Основание улучшенного магического бура
+container.bigsteppa.advancedArcaneBore=Улучшенный магический бур
 container.bigsteppa.armorStand=Стойка для брони
 tile.alchemicalSynthesisCore.name=Ядро алхимического синтеза
 tile.alchemicalSynthesisAspectInput.name=Поглотитель аспектов алхимического синтеза

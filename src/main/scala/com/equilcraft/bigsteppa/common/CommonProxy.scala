@@ -3,6 +3,7 @@ package com.equilcraft.bigsteppa.common
 import com.equilcraft.bigsteppa.{BigSteppa, Config}
 import com.equilcraft.bigsteppa.common.init.AlchemicalSynthesisRegistry
 import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
+import com.equilcraft.bigsteppa.common.gui.advancedarcanebore.AdvancedArcaneBoreGuiProvider
 import com.equilcraft.bigsteppa.common.gui.{GuiHandler, GuiRegistry}
 import com.equilcraft.bigsteppa.common.init.{SteppaBlocks, SteppaEntities}
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent, FMLServerStartingEvent}
@@ -16,6 +17,7 @@ class CommonProxy {
     SteppaBlocks.registerTileEntities()
     SteppaBlocks.registerRecipes()
     GuiRegistry.register(ArmorStandGuiProvider.armorStandGuiId, ArmorStandGuiProvider.instance)
+    GuiRegistry.register(AdvancedArcaneBoreGuiProvider.advancedArcaneBoreGuiId, AdvancedArcaneBoreGuiProvider.instance)
     NetworkRegistry.INSTANCE.registerGuiHandler(BigSteppa, new GuiHandler)
   }
 
