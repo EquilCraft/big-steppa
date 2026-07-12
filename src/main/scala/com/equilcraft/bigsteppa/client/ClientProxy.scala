@@ -3,6 +3,7 @@ package com.equilcraft.bigsteppa.client
 import com.equilcraft.bigsteppa.client.gui.armorstand.ClientArmorStandGuiProvider
 import com.equilcraft.bigsteppa.client.gui.advancedarcanebore.ClientAdvancedArcaneBoreGuiProvider
 import com.equilcraft.bigsteppa.client.render.armorstand.{ItemArmorStandRenderer, TileArmorStandRenderer}
+import com.equilcraft.bigsteppa.client.render.advancedarcanebore.ItemAdvancedArcaneBoreRenderer
 import com.equilcraft.bigsteppa.common.CommonProxy
 import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
 import com.equilcraft.bigsteppa.common.gui.advancedarcanebore.AdvancedArcaneBoreGuiProvider
@@ -32,6 +33,14 @@ class ClientProxy extends CommonProxy {
     MinecraftForgeClient.registerItemRenderer(
       Item.getItemFromBlock(SteppaBlocks.armorStand),
       new ItemArmorStandRenderer
+    )
+    MinecraftForgeClient.registerItemRenderer(
+      Item.getItemFromBlock(SteppaBlocks.advancedArcaneBoreBase),
+      new ItemAdvancedArcaneBoreRenderer(true)
+    )
+    MinecraftForgeClient.registerItemRenderer(
+      Item.getItemFromBlock(SteppaBlocks.advancedArcaneBore),
+      new ItemAdvancedArcaneBoreRenderer(false)
     )
   }
 }
