@@ -16,21 +16,21 @@ object BigSteppa {
 
   @Mod.EventHandler
   def preInit(event: FMLPreInitializationEvent): Unit = {
-    proxy.preInit(event)
+    this.proxy.preInit(event)
   }
 
   @Mod.EventHandler
   def init(event: FMLInitializationEvent): Unit = {
-    proxy.init(event)
+    this.proxy.init(event)
   }
 
   @Mod.EventHandler
   def postInit(event: FMLPostInitializationEvent): Unit = {
-    proxy.postInit(event)
+    this.proxy.postInit(event)
   }
 
   @Mod.EventHandler
   def serverStarting(event: FMLServerStartingEvent): Unit = {
-    proxy.serverStarting(event)
+    this.proxy.serverStarting(event)
   }
 }

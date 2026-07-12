@@ -21,7 +21,8 @@ import thaumcraft.common.items.wands.foci.ItemFocusExcavation
 import thaumcraft.common.lib.utils.{BlockUtils, InventoryUtils, Utils}
 import thaumcraft.common.tiles.TileArcaneBore
 
-import java.util.UUID
+import java.util.{ArrayList, UUID}
+import java.util.ArrayList
 
 final class TileAdvancedArcaneBore extends TileArcaneBore {
   private var excavationWidthValue = TileAdvancedArcaneBore.minWidth
@@ -136,7 +137,7 @@ final class TileAdvancedArcaneBore extends TileArcaneBore {
     this.perditio = math.max(0, math.min(TileAdvancedArcaneBore.capacity, tag.getInteger("Perditio")))
     this.ownerName = if (tag.hasKey("OwnerName")) tag.getString("OwnerName") else ""
     this.ownerId = if (tag.hasKey("OwnerMost") && tag.hasKey("OwnerLeast")) {
-      new java.util.UUID(tag.getLong("OwnerMost"), tag.getLong("OwnerLeast"))
+      new UUID(tag.getLong("OwnerMost"), tag.getLong("OwnerLeast"))
     } else null
     this.area = (this.excavationWidthValue - 5) / 2
     this.resetMining()
@@ -387,12 +388,12 @@ final class TileAdvancedArcaneBore extends TileArcaneBore {
     val doTileDrops = this.worldObj.getGameRules.getGameRuleBooleanValue("doTileDrops")
     val drops = if (doTileDrops) {
       if (silk) {
-        val result = new java.util.ArrayList[ItemStack]()
+        val result = new ArrayList[ItemStack]()
         val stacked = BlockUtils.createStackedBlock(block, metadata)
         if (stacked != null) result.add(stacked)
         result
       } else block.getDrops(this.worldObj, this.targetX, this.targetY, this.targetZ, metadata, fortune)
-    } else new java.util.ArrayList[ItemStack]()
+    } else new ArrayList[ItemStack]()
     if (doTileDrops) {
       ForgeEventFactory.fireBlockHarvesting(
         drops,
@@ -444,7 +445,7 @@ final class TileAdvancedArcaneBore extends TileArcaneBore {
       case stack => stack.getItem.asInstanceOf[ItemFocusBasic].isUpgradedWith(stack, ItemFocusExcavation.dowsing)
     })
 
-  private def collectNearbyDrops(drops: java.util.ArrayList[ItemStack]): Unit = {
+  private def collectNearbyDrops(drops: ArrayList[ItemStack]): Unit = {
     val entities = this.worldObj.getEntitiesWithinAABB(classOf[EntityItem], AxisAlignedBB.getBoundingBox(this.targetX, this.targetY, this.targetZ, this.targetX + 1, this.targetY + 1, this.targetZ + 1).expand(1.0D, 1.0D, 1.0D))
     var index = 0
     while (index < entities.size()) {

@@ -4,7 +4,7 @@ import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.gui.advancedarcanebore.AdvancedArcaneBoreGuiProvider
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBore
 import net.minecraft.block.material.Material
-import net.minecraft.block.{Block, BlockContainer}
+import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -18,7 +18,7 @@ import thaumcraft.common.config.ConfigBlocks
 import thaumcraft.common.items.wands.ItemWandCasting
 import thaumcraft.common.lib.utils.InventoryUtils
 
-final class BlockAdvancedArcaneBore extends BlockContainer(Material.wood) {
+final class BlockAdvancedArcaneBore extends Block(Material.wood) with ITileEntityProvider {
   this.setHardness(2.5F)
   this.setResistance(10.0F)
   this.setStepSound(Block.soundTypeWood)

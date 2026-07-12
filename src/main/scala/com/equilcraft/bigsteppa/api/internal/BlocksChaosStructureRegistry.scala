@@ -16,7 +16,7 @@ class BlocksChaosStructureRegistry[A] {
     val chunkZ = z >> 4
     val chunkKey = ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ)
 
-    val dimMap = registry.getOrCreate(dim)
+    val dimMap = this.registry.getOrCreate(dim)
     val list = dimMap.getOrCreate(chunkKey)
 
     val coords = new ChunkCoordinates(x, y, z)
@@ -26,7 +26,7 @@ class BlocksChaosStructureRegistry[A] {
   def remove(world: World, x: Int, y: Int, z: Int): Unit = {
     val chunkKey = ChunkCoordIntPair.chunkXZ2Int(x >> 4, z >> 4)
 
-    val dimMap = registry.get(world.provider.dimensionId)
+    val dimMap = this.registry.get(world.provider.dimensionId)
     if (dimMap != null) {
       val list = dimMap.get(chunkKey)
       if (list != null) {
@@ -37,7 +37,7 @@ class BlocksChaosStructureRegistry[A] {
   }
 
   def getTilesInChunk(dim: Int, chunkX: Int, chunkZ: Int): ObjectArrayList[ChunkCoordinates] = {
-    val dimMap = registry.get(dim)
+    val dimMap = this.registry.get(dim)
     if (dimMap == null) return null
     dimMap.get(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ))
   }

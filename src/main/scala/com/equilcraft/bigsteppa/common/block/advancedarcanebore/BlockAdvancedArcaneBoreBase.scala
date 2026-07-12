@@ -2,7 +2,7 @@ package com.equilcraft.bigsteppa.common.block.advancedarcanebore
 
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBoreBase
 import net.minecraft.block.material.Material
-import net.minecraft.block.{Block, BlockContainer}
+import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.IIcon
@@ -10,7 +10,7 @@ import net.minecraft.world.World
 import thaumcraft.common.Thaumcraft
 import thaumcraft.common.config.ConfigBlocks
 
-final class BlockAdvancedArcaneBoreBase extends BlockContainer(Material.wood) {
+final class BlockAdvancedArcaneBoreBase extends Block(Material.wood) with ITileEntityProvider {
   this.setHardness(2.5F)
   this.setResistance(10.0F)
   this.setStepSound(Block.soundTypeWood)

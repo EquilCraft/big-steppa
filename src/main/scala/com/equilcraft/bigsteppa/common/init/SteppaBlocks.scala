@@ -14,8 +14,7 @@ import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.{TileAlchemicalS
 import thaumcraft.common.config.ConfigBlocks
 import cpw.mods.fml.common.registry.GameRegistry
 import net.minecraft.block.Block
-import net.minecraft.init.{Blocks, Items}
-import net.minecraft.item.{ItemBlock, ItemStack}
+import net.minecraft.item.ItemBlock
 import net.minecraft.tileentity.TileEntity
 
 object SteppaBlocks {
@@ -43,59 +42,59 @@ object SteppaBlocks {
   var advancedArcaneBoreBase: Block = null
 
   def registerBlocks(): Unit = {
-    master = this.registerBlock(classOf[BlockMaster], "blockMaster").setBlockName("blockMaster")
-    structure = this.registerBlock(classOf[BlockStructure], "blockStructure").setBlockName("blockStructure")
-    beaconFarmer =
+    this.master = this.registerBlock(classOf[BlockMaster], "blockMaster").setBlockName("blockMaster")
+    this.structure = this.registerBlock(classOf[BlockStructure], "blockStructure").setBlockName("blockStructure")
+    this.beaconFarmer =
       this.registerBlock(classOf[BlockBeaconFarmer], "blockBeaconFarmer").setBlockName("blockBeaconFarmer")
-    armorStand = this.registerBlock(classOf[BlockArmorStand], "armorStand").setBlockName("armorStand")
-    alchemicalSynthesisRune =
-      this.registerBlock(new BlockBasicAlchemicalSynthesisRune, "alchemicalSynthesisRune")
-        .setBlockName("alchemicalSynthesisRune")
-    reinforcedAlchemicalSynthesisRune =
-      this.registerBlock(new BlockReinforcedAlchemicalSynthesisRune, "reinforcedAlchemicalSynthesisRune")
-        .setBlockName("reinforcedAlchemicalSynthesisRune")
-    resonantAlchemicalSynthesisRune =
-      this.registerBlock(new BlockResonantAlchemicalSynthesisRune, "resonantAlchemicalSynthesisRune")
-        .setBlockName("resonantAlchemicalSynthesisRune")
-    stabilizedAlchemicalSynthesisRune =
-      this.registerBlock(new BlockStabilizedAlchemicalSynthesisRune, "stabilizedAlchemicalSynthesisRune")
-        .setBlockName("stabilizedAlchemicalSynthesisRune")
-    abundanceAlchemicalSynthesisRune =
-      this.registerBlock(new BlockAbundanceAlchemicalSynthesisRune, "abundanceAlchemicalSynthesisRune")
-        .setBlockName("abundanceAlchemicalSynthesisRune")
-    speedAlchemicalSynthesisRune =
-      this.registerBlock(new BlockSpeedAlchemicalSynthesisRune, "speedAlchemicalSynthesisRune")
-        .setBlockName("speedAlchemicalSynthesisRune")
-    airAlchemicalSynthesisRune =
-      this.registerBlock(new BlockAirAlchemicalSynthesisRune, "airAlchemicalSynthesisRune")
-        .setBlockName("airAlchemicalSynthesisRune")
-    fireAlchemicalSynthesisRune =
-      this.registerBlock(new BlockFireAlchemicalSynthesisRune, "fireAlchemicalSynthesisRune")
-        .setBlockName("fireAlchemicalSynthesisRune")
-    waterAlchemicalSynthesisRune =
-      this.registerBlock(new BlockWaterAlchemicalSynthesisRune, "waterAlchemicalSynthesisRune")
-        .setBlockName("waterAlchemicalSynthesisRune")
-    earthAlchemicalSynthesisRune =
-      this.registerBlock(new BlockEarthAlchemicalSynthesisRune, "earthAlchemicalSynthesisRune")
-        .setBlockName("earthAlchemicalSynthesisRune")
-    orderAlchemicalSynthesisRune =
-      this.registerBlock(new BlockOrderAlchemicalSynthesisRune, "orderAlchemicalSynthesisRune")
-        .setBlockName("orderAlchemicalSynthesisRune")
-    entropyAlchemicalSynthesisRune =
-      this.registerBlock(new BlockEntropyAlchemicalSynthesisRune, "entropyAlchemicalSynthesisRune")
-        .setBlockName("entropyAlchemicalSynthesisRune")
-    advancedArcaneBoreBase = GameRegistry
-      .registerBlock(new BlockAdvancedArcaneBoreBase, classOf[ItemBlockAdvancedArcaneBoreBase], "AdvancedArcaneBoreBase")
-      .setBlockName("AdvancedArcaneBoreBase")
-    advancedArcaneBore = GameRegistry
-      .registerBlock(new BlockAdvancedArcaneBore, classOf[ItemBlockAdvancedArcaneBore], "AdvancedArcaneBore")
-      .setBlockName("AdvancedArcaneBore")
-    alchemicalSynthesisCore =
-      this.registerBlock(new BlockAlchemicalSynthesisCore, "alchemicalSynthesisCore")
-        .setBlockName("alchemicalSynthesisCore")
-    alchemicalSynthesisAspectInput =
-      this.registerBlock(new BlockAlchemicalSynthesisAspectInput, "alchemicalSynthesisAspectInput")
-        .setBlockName("alchemicalSynthesisAspectInput")
+    this.armorStand = this.registerBlock(classOf[BlockArmorStand], "blockArmorStand").setBlockName("blockArmorStand")
+    this.alchemicalSynthesisRune =
+      this.registerBlock(new BlockBasicAlchemicalSynthesisRune, "blockAlchemicalSynthesisRune")
+        .setBlockName("blockAlchemicalSynthesisRune")
+    this.reinforcedAlchemicalSynthesisRune =
+      this.registerBlock(new BlockReinforcedAlchemicalSynthesisRune, "blockReinforcedAlchemicalSynthesisRune")
+        .setBlockName("blockReinforcedAlchemicalSynthesisRune")
+    this.resonantAlchemicalSynthesisRune =
+      this.registerBlock(new BlockResonantAlchemicalSynthesisRune, "blockResonantAlchemicalSynthesisRune")
+        .setBlockName("blockResonantAlchemicalSynthesisRune")
+    this.stabilizedAlchemicalSynthesisRune =
+      this.registerBlock(new BlockStabilizedAlchemicalSynthesisRune, "blockStabilizedAlchemicalSynthesisRune")
+        .setBlockName("blockStabilizedAlchemicalSynthesisRune")
+    this.abundanceAlchemicalSynthesisRune =
+      this.registerBlock(new BlockAbundanceAlchemicalSynthesisRune, "blockAbundanceAlchemicalSynthesisRune")
+        .setBlockName("blockAbundanceAlchemicalSynthesisRune")
+    this.speedAlchemicalSynthesisRune =
+      this.registerBlock(new BlockSpeedAlchemicalSynthesisRune, "blockSpeedAlchemicalSynthesisRune")
+        .setBlockName("blockSpeedAlchemicalSynthesisRune")
+    this.airAlchemicalSynthesisRune =
+      this.registerBlock(new BlockAirAlchemicalSynthesisRune, "blockAirAlchemicalSynthesisRune")
+        .setBlockName("blockAirAlchemicalSynthesisRune")
+    this.fireAlchemicalSynthesisRune =
+      this.registerBlock(new BlockFireAlchemicalSynthesisRune, "blockFireAlchemicalSynthesisRune")
+        .setBlockName("blockFireAlchemicalSynthesisRune")
+    this.waterAlchemicalSynthesisRune =
+      this.registerBlock(new BlockWaterAlchemicalSynthesisRune, "blockWaterAlchemicalSynthesisRune")
+        .setBlockName("blockWaterAlchemicalSynthesisRune")
+    this.earthAlchemicalSynthesisRune =
+      this.registerBlock(new BlockEarthAlchemicalSynthesisRune, "blockEarthAlchemicalSynthesisRune")
+        .setBlockName("blockEarthAlchemicalSynthesisRune")
+    this.orderAlchemicalSynthesisRune =
+      this.registerBlock(new BlockOrderAlchemicalSynthesisRune, "blockOrderAlchemicalSynthesisRune")
+        .setBlockName("blockOrderAlchemicalSynthesisRune")
+    this.entropyAlchemicalSynthesisRune =
+      this.registerBlock(new BlockEntropyAlchemicalSynthesisRune, "blockEntropyAlchemicalSynthesisRune")
+        .setBlockName("blockEntropyAlchemicalSynthesisRune")
+    this.advancedArcaneBoreBase = GameRegistry
+      .registerBlock(new BlockAdvancedArcaneBoreBase, classOf[ItemBlockAdvancedArcaneBoreBase], "blockAdvancedArcaneBoreBase")
+      .setBlockName("blockAdvancedArcaneBoreBase")
+    this.advancedArcaneBore = GameRegistry
+      .registerBlock(new BlockAdvancedArcaneBore, classOf[ItemBlockAdvancedArcaneBore], "blockAdvancedArcaneBore")
+      .setBlockName("blockAdvancedArcaneBore")
+    this.alchemicalSynthesisCore =
+      this.registerBlock(new BlockAlchemicalSynthesisCore, "blockAlchemicalSynthesisCore")
+        .setBlockName("blockAlchemicalSynthesisCore")
+    this.alchemicalSynthesisAspectInput =
+      this.registerBlock(new BlockAlchemicalSynthesisAspectInput, "blockAlchemicalSynthesisAspectInput")
+        .setBlockName("blockAlchemicalSynthesisAspectInput")
   }
 
   def registerTileEntities(): Unit = {

@@ -35,7 +35,7 @@ object Config {
     "resonant;8;0;0;minecraft.redstone=10,minecraft.lapis=4,minecraft.diamond=2,minecraft.quartz=12,thaumcraft.amber=4;potentia=1",
     "stabilized;8;0;0;thaumcraft.infused_order=10;ordo=1",
     "abundance;8;1;0;;permutatio=1,terra=1",
-    defaultSpeedRuneDefinition,
+    this.defaultSpeedRuneDefinition,
     "air;8;0;0;thaumcraft.infused_air=20;aer=1",
     "fire;8;0;0;thaumcraft.infused_fire=20;ignis=1",
     "water;8;0;0;thaumcraft.infused_water=20;aqua=1",
@@ -59,13 +59,13 @@ object Config {
       configuration.getString("greeting", Configuration.CATEGORY_GENERAL, this.greeting, "How shall I greet?")
     this.alchemicalSynthesisEnabled = configuration.getBoolean(
       "enabled",
-      alchemicalSynthesisGeneralCategory,
+      this.alchemicalSynthesisGeneralCategory,
       this.alchemicalSynthesisEnabled,
       "Enables ore synthesis inside a completed structure."
     )
     this.alchemicalSynthesisSpawnInterval = configuration.getInt(
       "spawnIntervalTicks",
-      alchemicalSynthesisGeneralCategory,
+      this.alchemicalSynthesisGeneralCategory,
       this.alchemicalSynthesisSpawnInterval,
       1,
       72000,
@@ -73,7 +73,7 @@ object Config {
     )
     this.alchemicalSynthesisFailedRetryInterval = configuration.getInt(
       "failedRetryTicks",
-      alchemicalSynthesisGeneralCategory,
+      this.alchemicalSynthesisGeneralCategory,
       this.alchemicalSynthesisFailedRetryInterval,
       1,
       72000,
@@ -81,7 +81,7 @@ object Config {
     )
     this.alchemicalSynthesisMaximumBlocksPerCycle = configuration.getInt(
       "maximumBlocksPerCycle",
-      alchemicalSynthesisGeneralCategory,
+      this.alchemicalSynthesisGeneralCategory,
       this.alchemicalSynthesisMaximumBlocksPerCycle,
       1,
       128,
@@ -89,7 +89,7 @@ object Config {
     )
     this.alchemicalSynthesisPlacementAttemptsPerBlock = configuration.getInt(
       "placementAttemptsPerBlock",
-      alchemicalSynthesisGeneralCategory,
+      this.alchemicalSynthesisGeneralCategory,
       this.alchemicalSynthesisPlacementAttemptsPerBlock,
       1,
       100,
@@ -97,21 +97,21 @@ object Config {
     )
     this.alchemicalSynthesisOreDefinitions = configuration.getStringList(
       "definitions",
-      alchemicalSynthesisOresCategory,
+      this.alchemicalSynthesisOresCategory,
       this.defaultAlchemicalSynthesisOres,
       "id;modid:block;meta;baseWeight;minVein;maxVein;aspect=amount,aspect=amount"
     )
     this.alchemicalSynthesisRuneDefinitions = configuration.getStringList(
       "definitions",
-      alchemicalSynthesisRunesCategory,
+      this.alchemicalSynthesisRunesCategory,
       this.defaultAlchemicalSynthesisRunes,
       "runeId;maxEffectiveCount;extraBlocksPerRune;speedPercentPerRune;oreId=weightBonus,...;aspect=amount,..."
     )
     if (!this.alchemicalSynthesisRuneDefinitions.exists(_.trim.startsWith("speed;"))) {
       this.alchemicalSynthesisRuneDefinitions =
-        this.alchemicalSynthesisRuneDefinitions :+ defaultSpeedRuneDefinition
+        this.alchemicalSynthesisRuneDefinitions :+ this.defaultSpeedRuneDefinition
       configuration
-        .get(alchemicalSynthesisRunesCategory, "definitions", this.defaultAlchemicalSynthesisRunes)
+        .get(this.alchemicalSynthesisRunesCategory, "definitions", this.defaultAlchemicalSynthesisRunes)
         .set(this.alchemicalSynthesisRuneDefinitions)
     }
     if (configuration.hasChanged) configuration.save()

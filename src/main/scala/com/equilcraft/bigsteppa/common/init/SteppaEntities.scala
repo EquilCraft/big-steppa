@@ -3,7 +3,6 @@ package com.equilcraft.bigsteppa.common.init
 import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.entity.EntityDopplegangerSpawned
 import cpw.mods.fml.common.registry.EntityRegistry
-import vazkii.botania.common.Botania
 import vazkii.botania.common.lib.LibEntityNames
 
 object SteppaEntities {

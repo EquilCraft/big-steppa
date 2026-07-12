@@ -3,8 +3,8 @@ package com.equilcraft.bigsteppa.client.model.armorstand
 import net.minecraft.client.model.{ModelBase, ModelRenderer}
 
 class ModelArmorStand extends ModelBase {
-  textureWidth = 64
-  textureHeight = 32
+  this.textureWidth = 64
+  this.textureHeight = 32
 
   private val base =
     part(-7.0F, -2.0F, -5.0F, 14, 2, 10, 0.0F, 24.0F, 0.0F)
@@ -19,8 +19,8 @@ class ModelArmorStand extends ModelBase {
   private val rightBrace =
     part(-1.0F, 0.0F, -1.0F, 2, 8, 2, 5.5F, 4.0F, 0.0F)
 
-  leftBrace.rotateAngleZ = -0.62F
-  rightBrace.rotateAngleZ = 0.62F
+  this.leftBrace.rotateAngleZ = -0.62F
+  this.rightBrace.rotateAngleZ = 0.62F
 
   private def part(
     boxX: Float,
@@ -40,11 +40,11 @@ class ModelArmorStand extends ModelBase {
   }
 
   def render(scale: Float): Unit = {
-    base.render(scale)
-    upright.render(scale)
-    shoulders.render(scale)
-    neck.render(scale)
-    leftBrace.render(scale)
-    rightBrace.render(scale)
+    this.base.render(scale)
+    this.upright.render(scale)
+    this.shoulders.render(scale)
+    this.neck.render(scale)
+    this.leftBrace.render(scale)
+    this.rightBrace.render(scale)
   }
 }

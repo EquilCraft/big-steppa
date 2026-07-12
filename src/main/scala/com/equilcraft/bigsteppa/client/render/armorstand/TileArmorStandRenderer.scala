@@ -16,7 +16,7 @@ class TileArmorStandRenderer extends TileEntitySpecialRenderer {
   private var armorDummy: EntityLiving = _
   private var dummyWorld: World = _
 
-  armorRenderer.setRenderManager(RenderManager.instance)
+  this.armorRenderer.setRenderManager(RenderManager.instance)
 
   override def renderTileEntityAt(
     tile: TileEntity,
@@ -27,8 +27,8 @@ class TileArmorStandRenderer extends TileEntitySpecialRenderer {
   ): Unit = tile match {
     case armorStand: TileArmorStand =>
       val yaw = (tile.getBlockMetadata & 3) * 90.0F
-      renderStand(x, y, z, yaw)
-      renderArmor(armorStand, x, y, z, yaw, partialTicks)
+      this.renderStand(x, y, z, yaw)
+      this.renderArmor(armorStand, x, y, z, yaw, partialTicks)
     case _ =>
   }
 
@@ -40,7 +40,7 @@ class TileArmorStandRenderer extends TileEntitySpecialRenderer {
     GL11.glEnable(GL12.GL_RESCALE_NORMAL)
     GL11.glDisable(GL11.GL_TEXTURE_2D)
     GL11.glColor4f(0.48F, 0.29F, 0.13F, 1.0F)
-    standModel.render(0.0625F)
+    this.standModel.render(0.0625F)
     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
     GL11.glEnable(GL11.GL_TEXTURE_2D)
     GL11.glDisable(GL12.GL_RESCALE_NORMAL)
@@ -55,31 +55,31 @@ class TileArmorStandRenderer extends TileEntitySpecialRenderer {
     yaw: Float,
     partialTicks: Float
   ): Unit = {
-    ensureDummy(armorStand.getWorldObj)
-    armorDummy.setCurrentItemOrArmor(4, armorStand.getStackInSlot(slotHead))
-    armorDummy.setCurrentItemOrArmor(3, armorStand.getStackInSlot(slotChest))
-    armorDummy.setCurrentItemOrArmor(2, armorStand.getStackInSlot(slotLegs))
-    armorDummy.setCurrentItemOrArmor(1, armorStand.getStackInSlot(slotFeet))
-    armorDummy.setPosition(
+    this.ensureDummy(armorStand.getWorldObj)
+    this.armorDummy.setCurrentItemOrArmor(4, armorStand.getStackInSlot(slotHead))
+    this.armorDummy.setCurrentItemOrArmor(3, armorStand.getStackInSlot(slotChest))
+    this.armorDummy.setCurrentItemOrArmor(2, armorStand.getStackInSlot(slotLegs))
+    this.armorDummy.setCurrentItemOrArmor(1, armorStand.getStackInSlot(slotFeet))
+    this.armorDummy.setPosition(
       armorStand.xCoord + 0.5D,
       armorStand.yCoord,
       armorStand.zCoord + 0.5D
     )
-    armorDummy.prevRenderYawOffset = yaw
-    armorDummy.renderYawOffset = yaw
-    armorDummy.prevRotationYawHead = yaw
-    armorDummy.rotationYawHead = yaw
-    armorDummy.prevRotationYaw = yaw
-    armorDummy.rotationYaw = yaw
-    armorDummy.prevRotationPitch = 0.0F
-    armorDummy.rotationPitch = 0.0F
-    armorDummy.limbSwing = 0.0F
-    armorDummy.limbSwingAmount = 0.0F
-    armorDummy.prevLimbSwingAmount = 0.0F
+    this.armorDummy.prevRenderYawOffset = yaw
+    this.armorDummy.renderYawOffset = yaw
+    this.armorDummy.prevRotationYawHead = yaw
+    this.armorDummy.rotationYawHead = yaw
+    this.armorDummy.prevRotationYaw = yaw
+    this.armorDummy.rotationYaw = yaw
+    this.armorDummy.prevRotationPitch = 0.0F
+    this.armorDummy.rotationPitch = 0.0F
+    this.armorDummy.limbSwing = 0.0F
+    this.armorDummy.limbSwingAmount = 0.0F
+    this.armorDummy.prevLimbSwingAmount = 0.0F
 
     GL11.glPushMatrix()
-    armorRenderer.doRender(
-      armorDummy,
+    this.armorRenderer.doRender(
+      this.armorDummy,
       x + 0.5D,
       y,
       z + 0.5D,
@@ -90,9 +90,9 @@ class TileArmorStandRenderer extends TileEntitySpecialRenderer {
   }
 
   private def ensureDummy(world: World): Unit = {
-    if (armorDummy == null || dummyWorld != world) {
-      dummyWorld = world
-      armorDummy = new EntityLiving(world) {}
+    if (this.armorDummy == null || this.dummyWorld != world) {
+      this.dummyWorld = world
+      this.armorDummy = new EntityLiving(world) {}
     }
   }
 }

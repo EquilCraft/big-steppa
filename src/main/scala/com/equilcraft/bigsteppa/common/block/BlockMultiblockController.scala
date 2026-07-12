@@ -40,8 +40,8 @@ abstract class BlockMultiblockController[T <: TileEntity with MultiblockControll
       world.getTileEntity(x, y, z) match {
         case controller: MultiblockController[_] =>
           val key =
-            if (controller.checkStructureNow()) formedTranslationKey
-            else incompleteTranslationKey
+            if (controller.checkStructureNow()) this.formedTranslationKey
+            else this.incompleteTranslationKey
           player.addChatMessage(new ChatComponentTranslation(key))
         case _ =>
       }

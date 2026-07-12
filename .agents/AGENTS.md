@@ -27,7 +27,7 @@
 - **Base Traits/Classes [MANDATORY]:**
   - `MultiblockController[T]`: Handles `structureLib` hooks (`construct`, `check`).
   - `BlockMultiblockController[T]`: Base block for activation/neighbor updates.
-- **Tile Entity Pattern:** Do NOT inherit `BlockContainer`. Inherit `Block` + implement `ITileEntityProvider` directly. (Exception: extend `BlockContainer` ONLY if you explicitly need its `onBlockEventReceived`).
+- **Tile Entity Pattern:** Do NOT inherit `BlockContainer`. Inherit `Block` + implement `ITileEntityProvider` directly. (Exception: extend `BlockContainer` ONLY if you explicitly need its `onBlockEventReceived`). [SKIP] manual `removeTileEntity` in `breakBlock` (Forge auto-handles it).
 
 ## 4. SYSTEMS & REGISTRIES
 - **Block Registration:** Use `SteppaBlocks` helpers. Names MUST start with lowercase `block` (e.g., `blockBeaconFarmer`). [FORBIDDEN]: Crafting recipes for blocks.

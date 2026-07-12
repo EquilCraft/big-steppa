@@ -48,7 +48,7 @@ class ItemArmorStandRenderer extends IItemRenderer {
     GL11.glEnable(GL12.GL_RESCALE_NORMAL)
     GL11.glDisable(GL11.GL_TEXTURE_2D)
     GL11.glColor4f(0.48F, 0.29F, 0.13F, 1.0F)
-    model.render(0.0625F)
+    this.model.render(0.0625F)
     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F)
     GL11.glEnable(GL11.GL_TEXTURE_2D)
     GL11.glDisable(GL12.GL_RESCALE_NORMAL)

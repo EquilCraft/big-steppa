@@ -4,7 +4,7 @@ import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand.{slotCount, slotFeet, slotLegs, slotChest, slotHead}
 import com.equilcraft.bigsteppa.common.gui.armorstand.ArmorStandGuiProvider
-import net.minecraft.block.{Block, BlockContainer}
+import net.minecraft.block.{Block, ITileEntityProvider}
 import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.creativetab.CreativeTabs
@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection
 import java.util
 import java.util.Random
 
-class BlockArmorStand extends BlockContainer(Material.wood) {
+class BlockArmorStand extends Block(Material.wood) with ITileEntityProvider {
   private var removingOtherHalf = false
 
   this.setHardness(2.5F)

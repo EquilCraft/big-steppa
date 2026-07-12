@@ -13,7 +13,7 @@ class ContainerArmorStand(
 ) extends Container {
 
   for (armorType <- 0 until slotCount) {
-    addSlotToContainer(
+    this.addSlotToContainer(
       new SlotArmorStand(armorStand, armorType, 80, 8 + armorType * 18, armorType)
     )
   }
@@ -22,7 +22,7 @@ class ContainerArmorStand(
     row <- 0 until 3
     column <- 0 until 9
   } {
-    addSlotToContainer(
+    this.addSlotToContainer(
       new Slot(
         playerInventory,
         column + row * 9 + 9,
@@ -33,12 +33,12 @@ class ContainerArmorStand(
   }
 
   for (column <- 0 until 9) {
-    addSlotToContainer(new Slot(playerInventory, column, 8 + column * 18, 142))
+    this.addSlotToContainer(new Slot(playerInventory, column, 8 + column * 18, 142))
   }
 
   for (armorType <- 0 until slotCount) {
     val playerInventorySlot = 39 - armorType
-    addSlotToContainer(
+    this.addSlotToContainer(
       new SlotArmorStand(
         playerInventory,
         playerInventorySlot,
@@ -54,8 +54,8 @@ class ContainerArmorStand(
 
   override def transferStackInSlot(player: EntityPlayer, index: Int): ItemStack = {
     val sourceSlot =
-      if (index >= 0 && index < inventorySlots.size()) {
-        inventorySlots.get(index).asInstanceOf[Slot]
+      if (index >= 0 && index < this.inventorySlots.size()) {
+        this.inventorySlots.get(index).asInstanceOf[Slot]
       } else {
         null
       }
@@ -68,24 +68,24 @@ class ContainerArmorStand(
     val moved =
       if (index >= standStart && index < standEnd) {
         val playerArmorIndex = playerArmorStart + index
-        mergeItemStack(source, playerArmorIndex, playerArmorIndex + 1, false) ||
-          mergeItemStack(source, playerMainStart, hotbarEnd, true)
+        this.mergeItemStack(source, playerArmorIndex, playerArmorIndex + 1, false) ||
+          this.mergeItemStack(source, playerMainStart, hotbarEnd, true)
       } else if (index >= playerArmorStart && index < playerArmorEnd) {
         val standIndex = index - playerArmorStart
-        mergeItemStack(source, standIndex, standIndex + 1, false) ||
-          mergeItemStack(source, playerMainStart, hotbarEnd, true)
+        this.mergeItemStack(source, standIndex, standIndex + 1, false) ||
+          this.mergeItemStack(source, playerMainStart, hotbarEnd, true)
       } else if (armorType >= 0) {
-        mergeItemStack(source, armorType, armorType + 1, false) ||
-          mergeItemStack(
+        this.mergeItemStack(source, armorType, armorType + 1, false) ||
+          this.mergeItemStack(
             source,
             playerArmorStart + armorType,
             playerArmorStart + armorType + 1,
             false
           )
       } else if (index >= playerMainStart && index < playerMainEnd) {
-        mergeItemStack(source, hotbarStart, hotbarEnd, false)
+        this.mergeItemStack(source, hotbarStart, hotbarEnd, false)
       } else if (index >= hotbarStart && index < hotbarEnd) {
-        mergeItemStack(source, playerMainStart, playerMainEnd, false)
+        this.mergeItemStack(source, playerMainStart, playerMainEnd, false)
       } else {
         false
       }

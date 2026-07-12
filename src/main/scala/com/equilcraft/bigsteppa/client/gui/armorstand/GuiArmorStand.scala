@@ -12,23 +12,23 @@ class GuiArmorStand(
   armorStand: TileArmorStand
 ) extends GuiContainer(new ContainerArmorStand(playerInventory, armorStand)) {
 
-  xSize = 176
-  ySize = 166
+  this.xSize = 176
+  this.ySize = 166
 
   override protected def drawGuiContainerForegroundLayer(
     mouseX: Int,
     mouseY: Int
   ): Unit = {
-    fontRendererObj.drawString(
+    this.fontRendererObj.drawString(
       StatCollector.translateToLocal("container.bigsteppa.armorStand"),
       8,
       6,
       0x404040
     )
-    fontRendererObj.drawString(
+    this.fontRendererObj.drawString(
       StatCollector.translateToLocal("container.inventory"),
       8,
-      ySize - 96 + 2,
+      this.ySize - 96 + 2,
       0x404040
     )
   }
@@ -38,11 +38,11 @@ class GuiArmorStand(
     mouseX: Int,
     mouseY: Int
   ): Unit = {
-    val left = (width - xSize) / 2
-    val top = (height - ySize) / 2
+    val left = (this.width - this.xSize) / 2
+    val top = (this.height - this.ySize) / 2
 
     GL11.glDisable(GL11.GL_TEXTURE_2D)
-    drawGradientRect(
+    this.drawGradientRect(
       left,
       top,
       left + xSize,
@@ -50,7 +50,7 @@ class GuiArmorStand(
       0xFFD8D8D8L.toInt,
       0xFFC6C6C6L.toInt
     )
-    drawGradientRect(
+    this.drawGradientRect(
       left + 4,
       top + 4,
       left + xSize - 4,
@@ -60,17 +60,17 @@ class GuiArmorStand(
     )
 
     for (armorType <- 0 until 4) {
-      drawSlot(left + 79, top + 7 + armorType * 18)
-      drawSlot(left + 125, top + 7 + armorType * 18)
+      this.drawSlot(left + 79, top + 7 + armorType * 18)
+      this.drawSlot(left + 125, top + 7 + armorType * 18)
     }
     for {
       row <- 0 until 3
       column <- 0 until 9
     } {
-      drawSlot(left + 7 + column * 18, top + 83 + row * 18)
+      this.drawSlot(left + 7 + column * 18, top + 83 + row * 18)
     }
     for (column <- 0 until 9) {
-      drawSlot(left + 7 + column * 18, top + 141)
+      this.drawSlot(left + 7 + column * 18, top + 141)
     }
 
     GL11.glEnable(GL11.GL_TEXTURE_2D)
@@ -78,7 +78,7 @@ class GuiArmorStand(
   }
 
   private def drawSlot(x: Int, y: Int): Unit = {
-    drawGradientRect(
+    this.drawGradientRect(
       x,
       y,
       x + 18,
@@ -86,7 +86,7 @@ class GuiArmorStand(
       0xFF777777L.toInt,
       0xFFFFFFFFL.toInt
     )
-    drawGradientRect(
+    this.drawGradientRect(
       x + 1,
       y + 1,
       x + 17,

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation
 private[render] class ArmorStandBipedRenderer
   extends RenderBiped(new ModelBiped(0.0F), 0.0F) {
 
-  hideModel(modelBipedMain)
+  this.hideModel(this.modelBipedMain)
 
   private def hideModel(model: ModelBiped): Unit = {
     model.bipedHead.showModel = false
