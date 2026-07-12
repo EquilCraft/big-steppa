@@ -3,19 +3,16 @@ package com.equilcraft.bigsteppa.common.block.advancedarcanebore
 import com.equilcraft.bigsteppa.BigSteppa
 import com.equilcraft.bigsteppa.common.gui.advancedarcanebore.AdvancedArcaneBoreGuiProvider
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBore
-import net.minecraft.block.{Block, BlockContainer}
 import net.minecraft.block.material.Material
-import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.entity.{EntityLivingBase}
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.{Item, ItemStack}
-import net.minecraft.tileentity.TileEntity
+import net.minecraft.block.{Block, BlockContainer}
 import net.minecraft.client.renderer.texture.IIconRegister
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.IIcon
 import net.minecraft.world.{IBlockAccess, World}
 import net.minecraftforge.common.util.ForgeDirection
-
-import java.util
 import thaumcraft.common.Thaumcraft
 import thaumcraft.common.config.ConfigBlocks
 import thaumcraft.common.items.wands.ItemWandCasting
@@ -54,8 +51,6 @@ final class BlockAdvancedArcaneBore extends BlockContainer(Material.wood) {
     )
   }
 
-  override def createTileEntity(world: World, metadata: Int): TileEntity = new TileAdvancedArcaneBore
-
   override def createNewTileEntity(world: World, metadata: Int): TileEntity = new TileAdvancedArcaneBore
 
   override def onBlockPlacedBy(
@@ -71,12 +66,6 @@ final class BlockAdvancedArcaneBore extends BlockContainer(Material.wood) {
         bore.setOwner(placer.asInstanceOf[EntityPlayer])
       case _ =>
     }
-  }
-
-  override def damageDropped(metadata: Int): Int = 0
-
-  override def getSubBlocks(item: Item, tab: CreativeTabs, items: util.List[ItemStack]): Unit = {
-    items.add(new ItemStack(item, 1, 0))
   }
 
   override def onBlockActivated(

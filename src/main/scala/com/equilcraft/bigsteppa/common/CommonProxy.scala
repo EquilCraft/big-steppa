@@ -15,7 +15,6 @@ class CommonProxy {
 
     SteppaBlocks.registerBlocks()
     SteppaBlocks.registerTileEntities()
-    SteppaBlocks.registerRecipes()
     GuiRegistry.register(ArmorStandGuiProvider.armorStandGuiId, ArmorStandGuiProvider.instance)
     GuiRegistry.register(AdvancedArcaneBoreGuiProvider.advancedArcaneBoreGuiId, AdvancedArcaneBoreGuiProvider.instance)
     NetworkRegistry.INSTANCE.registerGuiHandler(BigSteppa, new GuiHandler)

@@ -1,44 +1,21 @@
 package com.equilcraft.bigsteppa.common.init
 
 import com.equilcraft.bigsteppa.Tags
-import com.equilcraft.bigsteppa.common.block.advancedarcanebore.{
-  BlockAdvancedArcaneBore,
-  BlockAdvancedArcaneBoreBase,
-  ItemBlockAdvancedArcaneBore,
-  ItemBlockAdvancedArcaneBoreBase
-}
+import com.equilcraft.bigsteppa.common.block.advancedarcanebore.{BlockAdvancedArcaneBore, BlockAdvancedArcaneBoreBase, ItemBlockAdvancedArcaneBore, ItemBlockAdvancedArcaneBoreBase}
 import com.equilcraft.bigsteppa.common.block.armorstand.BlockArmorStand
 import com.equilcraft.bigsteppa.common.block.beaconfarmer.BlockBeaconFarmer
 import com.equilcraft.bigsteppa.common.block.build.{BlockMaster, BlockStructure}
-import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.{
-  BlockAbundanceAlchemicalSynthesisRune,
-  BlockAlchemicalSynthesisAspectInput,
-  BlockAlchemicalSynthesisCore,
-  BlockAirAlchemicalSynthesisRune,
-  BlockBasicAlchemicalSynthesisRune,
-  BlockEarthAlchemicalSynthesisRune,
-  BlockEntropyAlchemicalSynthesisRune,
-  BlockFireAlchemicalSynthesisRune,
-  BlockOrderAlchemicalSynthesisRune,
-  BlockReinforcedAlchemicalSynthesisRune,
-  BlockResonantAlchemicalSynthesisRune,
-  BlockSpeedAlchemicalSynthesisRune,
-  BlockStabilizedAlchemicalSynthesisRune,
-  BlockWaterAlchemicalSynthesisRune
-}
+import com.equilcraft.bigsteppa.common.block.alchemicalsynthesis.{BlockAbundanceAlchemicalSynthesisRune, BlockAirAlchemicalSynthesisRune, BlockAlchemicalSynthesisAspectInput, BlockAlchemicalSynthesisCore, BlockBasicAlchemicalSynthesisRune, BlockEarthAlchemicalSynthesisRune, BlockEntropyAlchemicalSynthesisRune, BlockFireAlchemicalSynthesisRune, BlockOrderAlchemicalSynthesisRune, BlockReinforcedAlchemicalSynthesisRune, BlockResonantAlchemicalSynthesisRune, BlockSpeedAlchemicalSynthesisRune, BlockStabilizedAlchemicalSynthesisRune, BlockWaterAlchemicalSynthesisRune}
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import com.equilcraft.bigsteppa.common.tile.beaconfarmer.TileBeaconFarmer
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBore
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBoreBase
-import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.{
-  TileAlchemicalSynthesisAspectInput,
-  TileAlchemicalSynthesisCore
-}
+import com.equilcraft.bigsteppa.common.tile.alchemicalsynthesis.{TileAlchemicalSynthesisAspectInput, TileAlchemicalSynthesisCore}
 import thaumcraft.common.config.ConfigBlocks
 import cpw.mods.fml.common.registry.GameRegistry
 import net.minecraft.block.Block
 import net.minecraft.init.{Blocks, Items}
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{ItemBlock, ItemStack}
 import net.minecraft.tileentity.TileEntity
 
 object SteppaBlocks {
@@ -130,52 +107,14 @@ object SteppaBlocks {
     this.registerTileEntity(classOf[TileAdvancedArcaneBoreBase], "tileAdvancedArcaneBoreBase")
   }
 
-  def registerRecipes(): Unit = {
-    GameRegistry.addRecipe(
-      new ItemStack(armorStand),
-      " I ",
-      " I ",
-      "SSS",
-      Character.valueOf('I'),
-      Items.iron_ingot,
-      Character.valueOf('S'),
-      new ItemStack(Blocks.stone_slab, 1, 0)
-    )
-    GameRegistry.addRecipe(
-      new ItemStack(advancedArcaneBore),
-      "GPG",
-      "DID",
-      " B ",
-      Character.valueOf('G'),
-      new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-      Character.valueOf('P'),
-      Blocks.piston,
-      Character.valueOf('D'),
-      Items.diamond,
-      Character.valueOf('I'),
-      Items.gold_ingot,
-      Character.valueOf('B'),
-      new ItemStack(advancedArcaneBoreBase)
-    )
-    GameRegistry.addRecipe(
-      new ItemStack(advancedArcaneBoreBase),
-      "GIG",
-      "IDI",
-      "GIG",
-      Character.valueOf('G'),
-      new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
-      Character.valueOf('I'),
-      Items.iron_ingot,
-      Character.valueOf('D'),
-      Blocks.dispenser
-    )
-  }
-
   private def registerBlock(block: Class[_], blockName: String): Block =
     GameRegistry.registerBlock(block.newInstance.asInstanceOf[Block], blockName)
 
   private def registerBlock(block: Block, blockName: String): Block =
     GameRegistry.registerBlock(block, blockName)
+
+  private def registerBlock(block: Block, itemBlock: Class[_ <: ItemBlock], blockName: String): Block =
+    GameRegistry.registerBlock(block, itemBlock, blockName)
 
   private def registerTileEntity(tileEntity: Class[_ <: TileEntity], teName: String): Unit = {
     GameRegistry.registerTileEntity(tileEntity, identifier + teName)

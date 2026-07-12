@@ -1,6 +1,6 @@
 package com.equilcraft.bigsteppa.client.gui.armorstand
 
-import com.equilcraft.bigsteppa.common.inventory.armorstand.ContainerArmorStand
+import com.equilcraft.bigsteppa.common.container.armorstand.ContainerArmorStand
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.entity.player.InventoryPlayer

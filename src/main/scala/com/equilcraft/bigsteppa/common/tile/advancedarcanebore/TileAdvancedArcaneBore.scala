@@ -21,6 +21,8 @@ import thaumcraft.common.items.wands.foci.ItemFocusExcavation
 import thaumcraft.common.lib.utils.{BlockUtils, InventoryUtils, Utils}
 import thaumcraft.common.tiles.TileArcaneBore
 
+import java.util.UUID
+
 final class TileAdvancedArcaneBore extends TileArcaneBore {
   private var excavationWidthValue = TileAdvancedArcaneBore.minWidth
   private var excavationDepthValue = TileAdvancedArcaneBore.defaultDepth
@@ -42,7 +44,7 @@ final class TileAdvancedArcaneBore extends TileArcaneBore {
   private var completionProbeTicks = 0
   private var suppressVanillaDig = false
   private var boreBase: TileAdvancedArcaneBoreBase = null
-  private var ownerId: java.util.UUID = null
+  private var ownerId: UUID = null
   private var ownerName = ""
   private var ownerFakePlayer: FakePlayer = null
 

@@ -1,7 +1,7 @@
 package com.equilcraft.bigsteppa.common.gui.advancedarcanebore
 
 import com.equilcraft.bigsteppa.common.gui.GuiProvider
-import com.equilcraft.bigsteppa.common.inventory.advancedarcanebore.ContainerAdvancedArcaneBore
+import com.equilcraft.bigsteppa.common.container.advancedarcanebore.ContainerAdvancedArcaneBore
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBore
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World

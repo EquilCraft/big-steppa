@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.inventory.advancedarcanebore
+package com.equilcraft.bigsteppa.common.container.advancedarcanebore
 
 import com.equilcraft.bigsteppa.common.tile.advancedarcanebore.TileAdvancedArcaneBore
 import net.minecraft.entity.player.{EntityPlayer, InventoryPlayer}

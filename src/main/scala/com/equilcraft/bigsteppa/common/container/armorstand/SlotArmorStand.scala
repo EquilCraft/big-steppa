@@ -1,4 +1,4 @@
-package com.equilcraft.bigsteppa.common.inventory.armorstand
+package com.equilcraft.bigsteppa.common.container.armorstand
 
 import com.equilcraft.bigsteppa.common.tile.armorstand.TileArmorStand
 import net.minecraft.inventory.{IInventory, Slot}

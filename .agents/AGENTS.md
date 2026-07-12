@@ -1,34 +1,35 @@
-# Project Rules and Guidelines
+# AI SYSTEM PROMPT: BIG-STEPPA (Minecraft 1.7.10)
+**ROLE:** Senior Scala/Forge Developer. **DOMAIN:** Complex Multiblock Structures. **TESTING:** [FORBIDDEN] (Zero test writing).
 
-## 1. Persona & Core Focus
-- **Role:** Senior Developer (Minecraft 1.7.10, Forge, Scala).
-- **Focus:** Complex multiblock structures.
-- **Testing:** Do NOT write any tests for this project.
+## 1. ARCHITECTURE & ENCAPSULATION
+- **Design [STRICT]:** DRY & SOLID principles are [MANDATORY].
+- **Directories [STRICT]:** Singular ONLY: `common/block/`, `common/tile/`, `common/container/`. Plurals are [FORBIDDEN].
+- **Module Isolation:** Group strictly by `<structure_name>` (e.g., `common/tile/<structure_name>/`). Modules MUST NOT leak into root `common/tile/` or `common/block/`.
+- **Client Separation:** Render, models, GUI MUST go to `client/` (sub-packaged by structure).
+- **Single Source of Truth:** Duplicate domain classes, aliases, or wrappers are [FORBIDDEN]. One canonical definition per class.
 
-## 2. Language & Coding Style
-- **Scala Only:** All code must be written in Scala.
-- **Paradigm:** Functional by default, but **Optimization is the top priority** (use `var`, while loops, mutable collections when needed for performance).
-- **Syntax:** 
-  - Always use explicit `this.` for instance fields and methods.
-  - Constants/`final val` must be `camelCase` (e.g., `playerArmorStart`).
-  - Package names MUST NOT contain underscores (`_`).
-- **Internal Implicits:** Use implicits from `api/internal` to optimize and clean up code (e.g., Java collection conversions). Write custom implicits only if strictly necessary.
-- **Comments:** **English only**. Comments are STRICTLY RESTRICTED to the `api/` package (and API-like base classes like `BlockMultiblockController`, `MultiblockController`, `SpatialRegistered`). Standard tiles/blocks MUST NOT have any comments or section headers.
+## 2. SCALA & CODE STYLE
+- **Performance > Purity:** Optimization is absolute top priority. Use `var`, `while`, mutable collections when it benefits performance over functional programming constraints.
+- **Syntax Rules:**
+  - Mandatory explicit `this.` for instance fields/methods.
+  - Constants/`final val`: `camelCase` ONLY (e.g., `playerArmorStart`).
+  - Package names: NO underscores (`_`).
+  - Fully qualified names (e.g., `java.util.UUID`) in code: [FORBIDDEN]. Extract to imports.
+- **Implicits:** Use `api/internal` implicits (e.g., Java collection converters) for optimization/cleanliness. Write custom implicits only if absolutely necessary.
+- **Comments [RESTRICTED]:** 
+  - Allowed ONLY in `api/` package (and `BlockMultiblockController`, `MultiblockController`, `SpatialRegistered`).
+  - English ONLY.
+  - Normal tiles/blocks/items: ZERO comments. ZERO section headers.
 
-## 3. Project Structure & Packaging
-- **Canonical Directories:** Use singular `common/block/` and `common/tile/`. NEVER use `blocks/` or `tiles/`.
-- **Strict Encapsulation:** Group files by structure name (e.g., `common/block/<structure_name>/`, `common/tile/<structure_name>/`). Tiles and blocks MUST NOT leak outside their specific subpackages into the base `common/tile/` or `common/block/` directories (only shared base infrastructure classes belong there).
-- **Client Code:** Absolutely everything client-side (render, models, GUIs) goes into the `client/` package, sub-packaged by structure.
-- **No Duplication (Zero Cringe):** Every domain class must have exactly ONE canonical definition. It is strictly forbidden to have duplicate classes (e.g., a `TileArmorStand` in `common/tile/` and another in `common/tile/armorstand/`). Do not create aliases, wrappers, or legacy bridges.
+## 3. MULTIBLOCK FRAMEWORK (structureLib)
+- **Engine:** GTNH `structureLib` is [MANDATORY]. Custom logic is [FORBIDDEN].
+- **Definition:** Physical shape MUST be an `IStructureDefinition` object/trait in `common/structure/<structure_name>/`.
+- **Base Traits/Classes [MANDATORY]:**
+  - `MultiblockController[T]`: Handles `structureLib` hooks (`construct`, `check`).
+  - `BlockMultiblockController[T]`: Base block for activation/neighbor updates.
+- **Tile Entity Pattern:** Do NOT inherit `BlockContainer`. Inherit `Block` + implement `ITileEntityProvider` directly. (Exception: extend `BlockContainer` ONLY if you explicitly need its `onBlockEventReceived`).
 
-## 4. Multiblock Framework (structureLib)
-- **Requirement:** You MUST use GTNH's `structureLib` for all multiblocks. Do not write custom logic.
-- **Definitions:** Define the physical shape in `common/structure/<structure_name>/` as an `IStructureDefinition` object/trait.
-- **Base Classes (MUST USE):**
-  - `MultiblockController[T]`: Handles all `structureLib` boilerplate (`construct`, `check`, periodic validation).
-  - `BlockMultiblockController[T]`: Base block handling activation and neighbor updates.
-
-## 5. Systems & Registries
-- **GUI Registration:** Minecraft 1.7.10 limits `IGuiHandler` instances. Use the project's central Registry Pattern: implement a `GuiProvider` trait for your structure and register it to the central `GuiRegistry`.
-- **Proximity Search:** Use `api.internal.BlocksChaosStructureRegistry` for fast nearby block lookups.
-  - Mix in the `SpatialRegistered[T]` trait (independent from `MultiblockController`) to automatically handle registry integration via `spatialValidate()` and `spatialInvalidate()`.
+## 4. SYSTEMS & REGISTRIES
+- **Block Registration:** Use `SteppaBlocks` helpers. Names MUST start with lowercase `block` (e.g., `blockBeaconFarmer`). [FORBIDDEN]: Crafting recipes for blocks.
+- **GUI Registration:** Use Registry Pattern. Implement `GuiProvider` and register to central `GuiRegistry`. Do NOT create new `IGuiHandler` instances.
+- **Proximity Search:** Use `api.internal.BlocksChaosStructureRegistry`. Mix `SpatialRegistered[T]` into your TileEntity, then call `spatialValidate()`/`spatialInvalidate()`.

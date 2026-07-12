@@ -12,8 +12,6 @@ final class ItemBlockAdvancedArcaneBoreBase(block: Block) extends ItemBlock(bloc
   this.setMaxDamage(0)
   this.setHasSubtypes(false)
 
-  override def getMetadata(damage: Int): Int = 4
-
   override def placeBlockAt(
     stack: ItemStack,
     player: EntityPlayer,
@@ -27,7 +25,7 @@ final class ItemBlockAdvancedArcaneBoreBase(block: Block) extends ItemBlock(bloc
     hitZ: Float,
     metadata: Int
   ): Boolean = {
-    val placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, 4)
+    val placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata)
     if (placed) {
       world.getTileEntity(x, y, z) match {
         case base: TileAdvancedArcaneBoreBase =>

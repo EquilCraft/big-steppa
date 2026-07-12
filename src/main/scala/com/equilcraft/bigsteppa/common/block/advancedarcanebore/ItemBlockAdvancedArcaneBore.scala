@@ -12,8 +12,6 @@ final class ItemBlockAdvancedArcaneBore(block: Block) extends ItemBlock(block) {
   this.setMaxDamage(0)
   this.setHasSubtypes(false)
 
-  override def getMetadata(damage: Int): Int = 5
-
   override def placeBlockAt(
     stack: ItemStack,
     player: EntityPlayer,
@@ -28,14 +26,14 @@ final class ItemBlockAdvancedArcaneBore(block: Block) extends ItemBlock(block) {
     metadata: Int
   ): Boolean = {
     if (side != 1 || world.getBlock(x, y - 1, z) != SteppaBlocks.advancedArcaneBoreBase) return false
-    val placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, 5)
+    val placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata)
     if (placed) {
       world.getTileEntity(x, y, z) match {
         case bore: TileAdvancedArcaneBore =>
           bore.baseOrientation = ForgeDirection.getOrientation(side)
           bore.setOrientation(
             ForgeDirection.getOrientation(BlockPistonBase.determineOrientation(world, x, y, z, player)),
-            true
+            initial = true
           )
           bore.markDirty()
           world.markBlockForUpdate(x, y, z)
