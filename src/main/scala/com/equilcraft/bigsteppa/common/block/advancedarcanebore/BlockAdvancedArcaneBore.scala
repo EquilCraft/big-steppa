@@ -73,10 +73,10 @@ final class BlockAdvancedArcaneBore extends BlockContainer(Material.wood) {
     }
   }
 
-  override def damageDropped(metadata: Int): Int = 5
+  override def damageDropped(metadata: Int): Int = 0
 
   override def getSubBlocks(item: Item, tab: CreativeTabs, items: util.List[ItemStack]): Unit = {
-    items.add(new ItemStack(item, 1, 5))
+    items.add(new ItemStack(item, 1, 0))
   }
 
   override def onBlockActivated(

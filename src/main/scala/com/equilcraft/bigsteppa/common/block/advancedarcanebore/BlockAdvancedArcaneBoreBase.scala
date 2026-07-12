@@ -36,10 +36,10 @@ final class BlockAdvancedArcaneBoreBase extends BlockContainer(Material.wood) {
 
   override def createNewTileEntity(world: World, metadata: Int): TileEntity = new TileAdvancedArcaneBoreBase
 
-  override def damageDropped(metadata: Int): Int = 4
+  override def damageDropped(metadata: Int): Int = 0
 
   override def getSubBlocks(item: Item, tab: CreativeTabs, items: util.List[ItemStack]): Unit = {
-    items.add(new ItemStack(item, 1, 4))
+    items.add(new ItemStack(item, 1, 0))
   }
 
   override def onBlockActivated(

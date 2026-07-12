@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection
 
 final class ItemBlockAdvancedArcaneBore(block: Block) extends ItemBlock(block) {
   this.setMaxDamage(0)
-  this.setHasSubtypes(true)
+  this.setHasSubtypes(false)
 
   override def getMetadata(damage: Int): Int = 5
 
